@@ -34,6 +34,10 @@
         line-height: 1.6;
       }
 
+      body.modal-open {
+        overflow: hidden;
+      }
+
       a {
         color: inherit;
         text-decoration: none;
@@ -186,8 +190,7 @@
       .button-list,
       .button-row,
       .contact-grid,
-      .cv-grid,
-      .video-list {
+      .cv-grid {
         display: grid;
         gap: 12px;
       }
@@ -203,7 +206,8 @@
 
       .button,
       .filter-btn,
-      .article-link {
+      .article-link,
+      .modal-close {
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
@@ -215,12 +219,14 @@
         transition: 0.2s ease;
         font-family: Arial, Helvetica, sans-serif;
         font-size: 0.92rem;
+        cursor: pointer;
       }
 
       .button:hover,
       .filter-btn:hover,
       .article-link:hover,
-      .contact-card:hover {
+      .contact-card:hover,
+      .modal-close:hover {
         background: #111111;
         color: #ffffff;
       }
@@ -268,7 +274,8 @@
 
       .featured-title,
       .article-title,
-      .contact-title {
+      .contact-title,
+      .modal-title {
         letter-spacing: -0.03em;
       }
 
@@ -296,7 +303,6 @@
 
       .filter-btn {
         border-radius: 999px;
-        cursor: pointer;
         color: var(--muted);
       }
 
@@ -340,14 +346,20 @@
         line-height: 1.8;
       }
 
+      .article-note {
+        margin-top: 14px;
+        padding: 14px 16px;
+        border-left: 3px solid #111111;
+        background: rgba(17, 17, 17, 0.04);
+        color: rgba(17, 17, 17, 0.82);
+        font-size: 0.98rem;
+        line-height: 1.7;
+      }
+
       .article-actions {
         display: grid;
         gap: 10px;
         min-width: 150px;
-      }
-
-      .video-block {
-        margin-top: 32px;
       }
 
       .contact-title {
@@ -407,6 +419,70 @@
         transform: translateY(0);
       }
 
+      .article-modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(17, 17, 17, 0.68);
+        z-index: 1000;
+      }
+
+      .article-modal.open {
+        display: flex;
+      }
+
+      .article-modal-dialog {
+        width: min(1100px, 100%);
+        height: min(90vh, 920px);
+        background: #ffffff;
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .article-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .modal-title-wrap {
+        min-width: 0;
+      }
+
+      .modal-title {
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+      }
+
+      .modal-subtitle {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--soft);
+      }
+
+      .article-modal-body {
+        flex: 1;
+        background: #f2f2f2;
+      }
+
+      .article-frame {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #ffffff;
+      }
+
       @media (max-width: 900px) {
         .hero-grid,
         .content-grid,
@@ -432,6 +508,15 @@
         .menu-toggle {
           display: inline-flex;
         }
+
+        .article-modal {
+          padding: 12px;
+        }
+
+        .article-modal-dialog {
+          height: 92vh;
+          border-radius: 20px;
+        }
       }
 
       @media (max-width: 640px) {
@@ -451,10 +536,42 @@
         .article-actions {
           grid-template-columns: 1fr;
         }
+
+        .article-modal-header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .modal-close {
+          width: 100%;
+          justify-content: center;
+        }
       }
     </style>
   </head>
   <body>
+    <div class="article-modal" id="articleModal" aria-hidden="true">
+      <div class="article-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="article-modal-header">
+          <div class="modal-title-wrap">
+            <h2 class="modal-title" id="modalTitle">Article</h2>
+            <div class="modal-subtitle" id="modalSubtitle">PDF viewer</div>
+          </div>
+          <div class="button-row" style="margin-top: 0; grid-template-columns: repeat(2, max-content);">
+            <a class="button" id="modalOpenNewTab" href="#" target="_blank" rel="noreferrer">
+              <span>Open in new tab</span><span class="icon">↗</span>
+            </a>
+            <button class="modal-close" id="modalCloseButton" type="button">
+              <span>Close</span><span class="icon">✕</span>
+            </button>
+          </div>
+        </div>
+        <div class="article-modal-body">
+          <iframe class="article-frame" id="articleFrame" title="Article viewer"></iframe>
+        </div>
+      </div>
+    </div>
+
     <header class="site-header">
       <div class="container">
         <div class="header-inner">
@@ -465,7 +582,7 @@
             <a href="#portfolio">Portfolio</a>
             <a href="#contact">Contact</a>
           </nav>
-          <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav">
+          <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" type="button">
             Menu
           </button>
         </div>
@@ -485,8 +602,7 @@
             <p class="eyebrow">Trainee Journalist</p>
             <h1>Alex Levy</h1>
             <p class="hero-copy">
-              Trainee journalist with experience across news, features, comment and public relations.
-              Cambridge languages graduate, current NCTJ diploma student, and senior account executive in the corporate team at W Communications.
+              Trainee journalist working in public relations, with experience across local news, features, comment, and video.
             </p>
           </div>
 
@@ -494,7 +610,7 @@
             <p class="section-label">Quick links</p>
             <div class="button-list">
               <a class="button" href="#portfolio"><span>View portfolio</span><span class="icon">↗</span></a>
-              <a class="button" href="mailto:al2007@cantab.ac.uk"><span>Email Alex</span><span class="icon">✉</span></a>
+              <a class="button" href="mailto:al2007@cantab.ac.uk"><span>Email me</span><span class="icon">✉</span></a>
               <a class="button" href="cv/alex-levy-cv.pdf"><span>Download CV</span><span class="icon">↓</span></a>
             </div>
           </aside>
@@ -508,13 +624,13 @@
           </div>
           <div class="about-copy" data-animate>
             <p>
-              I am a trainee journalist working in public relations. I graduated in 2024 with a double first class degree in German and Italian from the University of Cambridge.
+              I am a trainee journalist working in public relations. I speak three languages, having graduated in 2024 with a double first class degree in German and Italian from the University of Cambridge.
             </p>
             <p>
               I am currently studying a part-time NCTJ diploma at PA Media Academy and have achieved A grades in editing skills, regulation and media law. I am a senior account executive in the corporate team at W Communications.
             </p>
             <p>
-              My work spans reported news, features and comment, with particular interests in culture, environment, politics and social issues.
+              My work so far has included running the features and comment sections of Varsity and covering multimedia local news stories. 
             </p>
           </div>
         </div>
@@ -590,14 +706,25 @@
           <div>
             <article class="card" data-animate>
               <p class="section-label">Featured</p>
-              <h2 class="featured-title">Just Stop Oil co-founder floats council tax strike in Lambeth</h2>
-              <p class="meta">Coursework · News · 30 October 2025</p>
+              <h2 class="featured-title">Council steps in as Brockwell Lido operator collapses into administration</h2>
+              <p class="meta">Coursework · News · 1 April 2026</p>
               <p class="body-copy">
-                Environmental activist Roger Hallam suggests a council tax strike at the launch of citizens' assembly Assemble Brixton.
+                Local authority to run popular lido as major UK leisure centre operator folds.
               </p>
+              <div class="article-note">
+                I was one of the first journalists to break this story having followed Fusion's difficulties and conducted interviews before they went into administration.
+              </div>
               <div class="button-row">
-                <a class="button" href="articles/just-stop-oil-council-tax-strike-lambeth.pdf" target="_blank" rel="noreferrer"><span>Open PDF</span><span class="icon">↗</span></a>
-                <a class="button" href="articles/just-stop-oil-council-tax-strike-lambeth.pdf" download><span>Download</span><span class="icon">↓</span></a>
+                <button
+                  class="button"
+                  type="button"
+                  data-article-url="articles/lambeth-takes-over-running-of-brockwell-lido-as-operator-collapses-into-administration.pdf"
+                  data-article-title="Council steps in as Brockwell Lido operator collapses into administration"
+                  data-article-meta="Coursework · News · 1 April 2026"
+                >
+                  <span>Read article</span><span class="icon">↗</span>
+                </button>
+                <a class="button" href="articles/council-steps-in-as-brockwell-lido-operator-collapses-into-administration.pdf" download><span>Download</span><span class="icon">↓</span></a>
               </div>
             </article>
 
@@ -611,17 +738,29 @@
             <div class="card portfolio-list" id="portfolioList">
               <article class="portfolio-item" data-category="News">
                 <div class="article-copy">
-                  <p class="meta">Coursework · News · 30 October 2025</p>
-                  <h3 class="article-title">Just Stop Oil co-founder floats council tax strike in Lambeth</h3>
+                  <p class="meta">Coursework · News · 1 April 2026</p>
+                  <h3 class="article-title">Council steps in as Brockwell Lido operator collapses into administration</h3>
                   <p class="article-description">
-                    Environmental activist Roger Hallam suggests a council tax strike at the launch of citizens' assembly Assemble Brixton.
+                    Local authority to run popular lido as major UK leisure centre operator folds.
                   </p>
+                  <div class="article-note">
+                    I was one of the first journalists to break this story having followed Fusion's difficulties and conducted interviews before they went into administration.
+                  </div>
                 </div>
                 <div class="article-actions">
-                  <a class="article-link" href="articles/just-stop-oil-council-tax-strike-lambeth.pdf" target="_blank" rel="noreferrer"><span>Open</span><span class="icon">↗</span></a>
-                  <a class="article-link" href="articles/just-stop-oil-council-tax-strike-lambeth.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                  <button
+                    class="article-link"
+                    type="button"
+                    data-article-url="articles/council-steps-in-as-brockwell-lido-operator-collapses-into-administration.pdf"
+                    data-article-title="Council steps in as Brockwell Lido operator collapses into administration"
+                    data-article-meta="Coursework · News · 1 April 2026"
+                  >
+                    <span>Read</span><span class="icon">↗</span>
+                  </button>
+                  <a class="article-link" href="articles/council-steps-in-as-brockwell-lido-operator-collapses-into-administration.pdf" download><span>PDF</span><span class="icon">↓</span></a>
                 </div>
               </article>
+              
 
               <article class="portfolio-item" data-category="Feature">
                 <div class="article-copy">
@@ -632,7 +771,15 @@
                   </p>
                 </div>
                 <div class="article-actions">
-                  <a class="article-link" href="articles/coming-down-to-earth-flight-free-travellers.pdf" target="_blank" rel="noreferrer"><span>Open</span><span class="icon">↗</span></a>
+                  <button
+                    class="article-link"
+                    type="button"
+                    data-article-url="articles/coming-down-to-earth-flight-free-travellers.pdf"
+                    data-article-title="Coming down to Earth with Cambridge’s flight-free travellers"
+                    data-article-meta="Varsity · Feature · 26 November 2023"
+                  >
+                    <span>Read</span><span class="icon">↗</span>
+                  </button>
                   <a class="article-link" href="articles/coming-down-to-earth-flight-free-travellers.pdf" download><span>PDF</span><span class="icon">↓</span></a>
                 </div>
               </article>
@@ -646,7 +793,15 @@
                   </p>
                 </div>
                 <div class="article-actions">
-                  <a class="article-link" href="articles/the-cult-of-the-cambridge-intern.pdf" target="_blank" rel="noreferrer"><span>Open</span><span class="icon">↗</span></a>
+                  <button
+                    class="article-link"
+                    type="button"
+                    data-article-url="articles/the-cult-of-the-cambridge-intern.pdf"
+                    data-article-title="The cult of the Cambridge intern"
+                    data-article-meta="Varsity · Feature · 10 October 2023"
+                  >
+                    <span>Read</span><span class="icon">↗</span>
+                  </button>
                   <a class="article-link" href="articles/the-cult-of-the-cambridge-intern.pdf" download><span>PDF</span><span class="icon">↓</span></a>
                 </div>
               </article>
@@ -660,7 +815,15 @@
                   </p>
                 </div>
                 <div class="article-actions">
-                  <a class="article-link" href="articles/in-praise-of-slow-travel.pdf" target="_blank" rel="noreferrer"><span>Open</span><span class="icon">↗</span></a>
+                  <button
+                    class="article-link"
+                    type="button"
+                    data-article-url="articles/in-praise-of-slow-travel.pdf"
+                    data-article-title="In praise of slow travel"
+                    data-article-meta="Varsity · Comment · 17 March 2022"
+                  >
+                    <span>Read</span><span class="icon">↗</span>
+                  </button>
                   <a class="article-link" href="articles/in-praise-of-slow-travel.pdf" download><span>PDF</span><span class="icon">↓</span></a>
                 </div>
               </article>
@@ -674,21 +837,18 @@
                   </p>
                 </div>
                 <div class="article-actions">
-                  <a class="article-link" href="articles/on-grantchester-rupert-brooke-and-idleness.pdf" target="_blank" rel="noreferrer"><span>Open</span><span class="icon">↗</span></a>
+                  <button
+                    class="article-link"
+                    type="button"
+                    data-article-url="articles/on-grantchester-rupert-brooke-and-idleness.pdf"
+                    data-article-title="On Grantchester, Rupert Brooke, and idleness"
+                    data-article-meta="Varsity · Comment · 06 August 2021"
+                  >
+                    <span>Read</span><span class="icon">↗</span>
+                  </button>
                   <a class="article-link" href="articles/on-grantchester-rupert-brooke-and-idleness.pdf" download><span>PDF</span><span class="icon">↓</span></a>
                 </div>
               </article>
-            </div>
-
-            <div class="card video-block" data-animate>
-              <p class="section-label">Video</p>
-              <h3 class="article-title">Video work</h3>
-              <p class="article-description">
-                Video links can be embedded here when available. YouTube, Vimeo, or broadcaster-hosted clips all work well in this layout.
-              </p>
-              <div class="button-row">
-                <a class="button" href="#"><span>Add video link</span><span class="icon">↗</span></a>
-              </div>
             </div>
           </div>
         </div>
@@ -715,7 +875,7 @@
               <a class="contact-card" href="https://www.linkedin.com/in/alex-levy-42b905132/" target="_blank" rel="noreferrer">
                 <div class="icon">🌐</div>
                 <p class="contact-label">LinkedIn</p>
-                <div class="contact-value">alex-levy-42b905132</div>
+                <div class="contact-value">Alex Levy</div>
               </a>
             </div>
           </div>
@@ -736,6 +896,13 @@
       const filterButtons = document.querySelectorAll(".filter-btn");
       const portfolioItems = document.querySelectorAll(".portfolio-item");
       const animatedItems = document.querySelectorAll("[data-animate]");
+      const articleModal = document.getElementById("articleModal");
+      const articleFrame = document.getElementById("articleFrame");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalSubtitle = document.getElementById("modalSubtitle");
+      const modalOpenNewTab = document.getElementById("modalOpenNewTab");
+      const modalCloseButton = document.getElementById("modalCloseButton");
+      const articleTriggers = document.querySelectorAll("[data-article-url]");
 
       document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -762,13 +929,46 @@
 
           portfolioItems.forEach((item) => {
             const matches = filter === "All" || item.dataset.category === filter;
-            item.style.display = matches ? "flex" : "none";
-
-            if (window.innerWidth <= 900 && matches) {
-              item.style.display = "grid";
-            }
+            item.style.display = matches ? (window.innerWidth <= 900 ? "grid" : "flex") : "none";
           });
         });
+      });
+
+      function openArticle(url, title, meta) {
+        articleFrame.src = url;
+        modalOpenNewTab.href = url;
+        modalTitle.textContent = title || "Article";
+        modalSubtitle.textContent = meta || "PDF viewer";
+        articleModal.classList.add("open");
+        articleModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+      }
+
+      function closeArticle() {
+        articleModal.classList.remove("open");
+        articleModal.setAttribute("aria-hidden", "true");
+        articleFrame.src = "";
+        document.body.classList.remove("modal-open");
+      }
+
+      articleTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", () => {
+          openArticle(trigger.dataset.articleUrl, trigger.dataset.articleTitle, trigger.dataset.articleMeta);
+        });
+      });
+
+      modalCloseButton.addEventListener("click", closeArticle);
+
+      articleModal.addEventListener("click", (event) => {
+        if (event.target === articleModal) {
+          closeArticle();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && articleModal.classList.contains("open")) {
+          closeArticle();
+        }
       });
 
       const observer = new IntersectionObserver(
@@ -785,10 +985,12 @@
 
       animatedItems.forEach((item) => observer.observe(item));
 
-      console.assert(document.querySelectorAll(".portfolio-item").length === 5, "Expected 5 portfolio items.");
+      console.assert(document.querySelectorAll(".portfolio-item").length === 6, "Expected 6 portfolio items.");
       console.assert(document.querySelectorAll(".filter-btn").length === 4, "Expected 4 portfolio filters.");
       console.assert(!!document.getElementById("menuToggle"), "Expected mobile menu toggle to exist.");
       console.assert(!!document.getElementById("year"), "Expected footer year element to exist.");
+      console.assert(!!document.getElementById("articleModal"), "Expected article modal to exist.");
+      console.assert(document.querySelectorAll("[data-article-url]").length === 7, "Expected 7 article read triggers.");
     </script>
   </body>
 </html>
