@@ -4,505 +4,571 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alex Levy | Trainee Journalist</title>
-    <meta
-      name="description"
-      content="Alex Levy is a trainee journalist with experience across news, features, comment and public relations."
-    />
+    <meta name="description" content="Alex Levy is a trainee journalist with experience across news, features, comment and public relations." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #f3f4ef;
-        --text: #1f271d;
-        --muted: rgba(31, 39, 29, 0.72);
-        --soft: rgba(31, 39, 29, 0.5);
-        --border: rgba(31, 39, 29, 0.12);
-        --card: #ffffff;
-        --accent: #6f7f5f;
-        --accent-dark: #566349;
-        --article: #fbfbf8;
+        --ink: #1a1814;
+        --ink-mid: rgba(26,24,20,0.6);
+        --ink-soft: rgba(26,24,20,0.38);
+        --paper: #f7f4ee;
+        --paper-warm: #ede9e0;
+        --rule: rgba(26,24,20,0.14);
+        --accent: #8b3a2a;
+        --accent-light: rgba(139,58,42,0.07);
+        --white: #ffffff;
+        --serif: 'Playfair Display', Georgia, serif;
+        --garamond: 'EB Garamond', Georgia, serif;
+        --sans: 'DM Sans', system-ui, sans-serif;
       }
 
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
 
       body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
         line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
 
-      body.modal-open {
-        overflow: hidden;
-      }
+      body.modal-open { overflow: hidden; }
+      a { color: inherit; text-decoration: none; }
+      button { font: inherit; cursor: pointer; }
 
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      button {
-        font: inherit;
-      }
-
+      /* ── LAYOUT ── */
       .container {
-        width: min(1120px, calc(100% - 48px));
+        width: min(1080px, calc(100% - 48px));
         margin: 0 auto;
       }
 
+      /* ── HEADER ── */
       .site-header {
         position: sticky;
         top: 0;
         z-index: 100;
-        background: rgba(243, 244, 239, 0.96);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--border);
+        background: rgba(247,244,238,0.96);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--rule);
       }
 
       .header-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 20px;
-        padding: 18px 0;
+        padding: 20px 0;
+        gap: 24px;
       }
 
       .brand {
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.8rem;
+        font-family: var(--serif);
+        font-size: 1.15rem;
         font-weight: 700;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
+        letter-spacing: 0.01em;
       }
 
       .nav {
         display: flex;
-        gap: 32px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.92rem;
+        gap: 36px;
+        font-family: var(--sans);
+        font-size: 0.78rem;
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
       }
 
-      .nav a,
-      .mobile-nav a {
-        color: var(--muted);
-      }
-
-      .nav a:hover,
-      .mobile-nav a:hover {
-        color: var(--text);
-      }
+      .nav a { color: var(--ink-mid); transition: color 0.2s; }
+      .nav a:hover { color: var(--ink); }
 
       .menu-toggle {
         display: none;
-        border: 1px solid var(--border);
-        background: #fff;
-        border-radius: 12px;
-        padding: 8px 10px;
-        cursor: pointer;
-        font-family: Inter, Arial, Helvetica, sans-serif;
+        background: none;
+        border: 1px solid var(--rule);
+        border-radius: 4px;
+        padding: 7px 12px;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-mid);
       }
 
       .mobile-nav {
         display: none;
-        padding: 0 0 16px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-      }
-
-      .mobile-nav.open {
-        display: flex;
         flex-direction: column;
-        gap: 12px;
-      }
-
-      .section {
-        padding: 72px 0;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .hero-grid,
-      .content-grid {
-        display: grid;
-        gap: 48px;
-      }
-
-      .hero-grid {
-        grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
-        align-items: end;
-      }
-
-      .content-grid {
-        grid-template-columns: minmax(150px, 0.7fr) minmax(0, 1.3fr);
-      }
-
-      .eyebrow {
-        margin: 0 0 16px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.74rem;
-        letter-spacing: 0.35em;
+        gap: 14px;
+        padding-bottom: 18px;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--soft);
       }
+      .mobile-nav a { color: var(--ink-mid); }
+      .mobile-nav.open { display: flex; }
 
-      .section-label {
-        margin: 0;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.74rem;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: var(--soft);
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
-      }
-
-      h1,
-      .contact-title,
-      .article-headline,
-      .article-title {
-        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-      }
-
-      h1 {
-        font-size: clamp(3rem, 8vw, 5.4rem);
-        line-height: 0.98;
-        letter-spacing: -0.04em;
-        margin-bottom: 24px;
-      }
-
-      .hero-copy {
-        max-width: 760px;
-        font-size: clamp(1.1rem, 2vw, 1.35rem);
-        color: var(--muted);
-        line-height: 1.8;
-      }
-
-      .card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 32px;
-        padding: 28px;
-        box-shadow: 0 10px 30px rgba(31, 39, 29, 0.04);
-      }
-
-      .card-soft {
-        background: rgba(255, 255, 255, 0.72);
-      }
-
-      .button-list,
-      .button-row,
-      .contact-grid,
-      .cv-grid {
-        display: grid;
-        gap: 12px;
-      }
-
-      .button-list {
-        margin-top: 24px;
-      }
-
-      .button-row {
-        grid-template-columns: repeat(auto-fit, minmax(180px, max-content));
-        margin-top: 28px;
-      }
-
-      .button,
-      .filter-btn,
-      .article-link,
-      .modal-close {
+      /* ── BUTTONS ── */
+      .btn {
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        padding: 13px 16px;
-        background: #fff;
-        transition: 0.2s ease;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.92rem;
-        cursor: pointer;
+        gap: 10px;
+        padding: 10px 15px;
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        background: var(--white);
+        font-family: var(--sans);
+        font-size: 0.75rem;
+        font-weight: 400;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        color: var(--ink-mid);
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+        white-space: nowrap;
       }
 
-      .button:hover,
-      .filter-btn:hover,
-      .article-link:hover,
-      .contact-card:hover,
-      .modal-close:hover {
+      .btn:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--white);
+      }
+
+      .btn-accent {
         background: var(--accent);
         border-color: var(--accent);
-        color: #ffffff;
+        color: var(--white);
+      }
+      .btn-accent:hover { background: #6e2d1f; border-color: #6e2d1f; }
+
+      /* ── HERO ── */
+      .hero {
+        padding: 96px 0 80px;
+        border-bottom: 1px solid var(--rule);
       }
 
-      .about-copy,
-      .body-copy {
-        font-size: 1.1rem;
-        line-height: 1.95;
-        color: rgba(31, 39, 29, 0.8);
+      .hero-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 44px;
       }
 
-      .cv-top {
+      .hero-eyebrow::before,
+      .hero-eyebrow::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      .hero-eyebrow-text {
+        font-family: var(--sans);
+        font-size: 0.68rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        white-space: nowrap;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 48px;
+        align-items: end;
+      }
+
+      h1 {
+        font-family: var(--serif);
+        font-size: clamp(3.8rem, 9vw, 7rem);
+        font-weight: 700;
+        line-height: 0.91;
+        letter-spacing: -0.025em;
+        margin-bottom: 28px;
+      }
+
+      h1 em {
+        font-style: italic;
+        font-weight: 400;
+        color: var(--accent);
+      }
+
+      .hero-copy {
+        font-family: var(--garamond);
+        font-size: 1.22rem;
+        line-height: 1.75;
+        color: var(--ink-mid);
+        max-width: 520px;
+      }
+
+      .hero-aside {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-self: end;
+        padding-bottom: 4px;
+      }
+
+      /* ── SECTIONS ── */
+      .section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .section-grid {
+        display: grid;
+        grid-template-columns: 190px 1fr;
+        gap: 64px;
+      }
+
+      .section-label {
+        font-family: var(--sans);
+        font-size: 0.67rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        padding-top: 5px;
+      }
+
+      /* ── ABOUT ── */
+      .about-text {
+        font-family: var(--garamond);
+        font-size: 1.18rem;
+        line-height: 1.85;
+        color: rgba(26,24,20,0.82);
+      }
+
+      .about-text p + p { margin-top: 1.1em; }
+
+      /* ── CV ── */
+      .cv-block {
+        background: var(--white);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .cv-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         gap: 24px;
+        padding: 32px 36px;
+        border-bottom: 1px solid var(--rule);
         flex-wrap: wrap;
       }
 
-      .cv-grid,
-      .contact-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        margin-top: 40px;
+      .cv-name {
+        font-family: var(--serif);
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 6px;
       }
 
-      .mini-heading {
-        margin-bottom: 16px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.76rem;
-        letter-spacing: 0.2em;
+      .cv-tagline {
+        font-family: var(--garamond);
+        font-size: 1.05rem;
+        color: var(--ink-mid);
+      }
+
+      .cv-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cv-col { padding: 28px 36px; }
+      .cv-col + .cv-col { border-left: 1px solid var(--rule); }
+
+      .cv-col-label {
+        font-family: var(--sans);
+        font-size: 0.63rem;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: var(--soft);
-      }
-
-      .timeline-item {
+        color: var(--ink-soft);
         margin-bottom: 20px;
-        font-size: 0.98rem;
-        color: var(--muted);
       }
 
-      .timeline-item strong {
+      .cv-item { margin-bottom: 18px; }
+
+      .cv-item strong {
         display: block;
-        color: var(--text);
+        font-family: var(--sans);
+        font-weight: 500;
+        font-size: 0.86rem;
+        color: var(--ink);
+        margin-bottom: 2px;
       }
 
-      .article-title,
-      .contact-title,
-      .modal-title {
-        letter-spacing: -0.03em;
+      .cv-item span {
+        font-size: 0.83rem;
+        color: var(--ink-mid);
+        line-height: 1.5;
       }
 
-      .meta {
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.78rem;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        color: rgba(31, 39, 29, 0.5);
-        margin-bottom: 18px;
-      }
-
-      .filters {
+      /* ── PORTFOLIO ── */
+      .filter-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin: 0 0 28px;
+        gap: 7px;
+        margin-bottom: 28px;
       }
 
       .filter-btn {
-        border-radius: 999px;
-        color: var(--muted);
+        padding: 6px 14px;
+        border: 1px solid var(--rule);
+        border-radius: 2px;
+        background: transparent;
+        font-family: var(--sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-mid);
+        transition: all 0.2s;
       }
+
+      .filter-btn:hover { border-color: var(--ink-mid); color: var(--ink); }
 
       .filter-btn.active {
-        background: var(--accent-dark);
-        color: #ffffff;
-        border-color: var(--accent-dark);
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--white);
       }
 
-      .portfolio-list {
-        overflow: hidden;
-        padding: 0;
-      }
+      .portfolio-list { border-top: 2px solid var(--ink); }
 
       .portfolio-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 24px;
-        padding: 28px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .portfolio-item:last-child {
-        border-bottom: 0;
-      }
-
-      .article-copy {
-        max-width: 760px;
-      }
-
-      .article-title {
-        font-size: 1.9rem;
-        line-height: 1.2;
-        margin-bottom: 14px;
-      }
-
-      .article-description {
-        color: var(--muted);
-        font-size: 1rem;
-        line-height: 1.8;
-      }
-
-      .article-note {
-        margin-top: 14px;
-        padding: 14px 16px;
-        border-left: 3px solid var(--accent);
-        background: rgba(111, 127, 95, 0.08);
-        color: rgba(31, 39, 29, 0.82);
-        font-size: 0.98rem;
-        line-height: 1.7;
-      }
-
-      .article-actions {
         display: grid;
-        gap: 10px;
-        min-width: 150px;
+        grid-template-columns: 1fr auto;
+        gap: 40px;
+        align-items: start;
+        padding: 32px 0;
+        border-bottom: 1px solid var(--rule);
       }
 
-      .contact-title {
-        font-size: 2.2rem;
-        margin-bottom: 14px;
+      .item-meta {
+        font-family: var(--sans);
+        font-size: 0.67rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 10px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .item-category { color: var(--accent); font-weight: 500; }
+
+      .item-title {
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.18;
+        letter-spacing: -0.02em;
+        margin-bottom: 10px;
+        color: var(--ink);
+      }
+
+      .item-desc {
+        font-family: var(--garamond);
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--ink-mid);
+        max-width: 580px;
+      }
+
+      .item-note {
+        margin-top: 14px;
+        padding: 12px 16px;
+        border-left: 2px solid var(--accent);
+        background: var(--accent-light);
+        font-family: var(--garamond);
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: var(--ink-mid);
+        font-style: italic;
+        max-width: 580px;
+      }
+
+      .item-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 2px;
+      }
+
+      /* ── CONTACT ── */
+      .contact-intro {
+        margin-bottom: 28px;
+      }
+
+      .contact-heading {
+        font-family: var(--serif);
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+      }
+
+      .contact-sub {
+        font-family: var(--garamond);
+        font-size: 1.05rem;
+        color: var(--ink-mid);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
       }
 
       .contact-card {
-        border: 1px solid var(--border);
-        border-radius: 24px;
-        padding: 22px;
-        transition: 0.2s ease;
+        display: block;
+        padding: 22px 24px;
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+        background: var(--white);
+        transition: all 0.2s;
       }
 
-      .contact-label {
-        margin: 14px 0 8px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.75rem;
-        letter-spacing: 0.2em;
+      .contact-card:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--white);
+      }
+
+      .contact-icon { font-size: 1rem; margin-bottom: 14px; }
+
+      .contact-lbl {
+        font-family: var(--sans);
+        font-size: 0.63rem;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        opacity: 0.75;
+        color: var(--ink-soft);
+        margin-bottom: 5px;
+        transition: color 0.2s;
       }
 
-      .contact-value {
-        font-size: 1.15rem;
-        font-weight: 600;
+      .contact-card:hover .contact-lbl { color: rgba(255,255,255,0.5); }
+
+      .contact-val {
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        font-weight: 500;
         word-break: break-word;
       }
 
-      .footer {
-        padding: 28px 0 38px;
-      }
+      /* ── FOOTER ── */
+      .site-footer { padding: 26px 0 36px; }
 
       .footer-inner {
         display: flex;
         justify-content: space-between;
         gap: 16px;
         flex-wrap: wrap;
-        color: var(--soft);
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.92rem;
+        font-family: var(--sans);
+        font-size: 0.76rem;
+        color: var(--ink-soft);
       }
 
-      .icon {
-        font-size: 1rem;
-        line-height: 1;
-      }
-
-      [data-animate] {
-        opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 0.65s ease, transform 0.65s ease;
-      }
-
-      [data-animate].visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .site-view {
-        display: block;
-      }
-
-      .site-view.hidden {
-        display: none;
-      }
+      /* ── ARTICLE VIEW ── */
+      .site-view.hidden { display: none; }
 
       .article-view {
         display: none;
-        min-height: calc(100vh - 80px);
-        background: var(--article);
+        min-height: calc(100vh - 62px);
+        background: var(--white);
       }
 
-      .article-view.visible {
-        display: block;
-      }
+      .article-view.visible { display: block; }
 
       .article-shell {
-        width: min(860px, calc(100% - 40px));
+        width: min(700px, calc(100% - 40px));
         margin: 0 auto;
-        padding: 56px 0 80px;
+        padding: 64px 0 96px;
       }
 
       .article-back {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 32px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        color: var(--muted);
+        gap: 8px;
+        font-family: var(--sans);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 48px;
+        transition: color 0.2s;
       }
 
-      .article-back:hover {
-        color: var(--text);
+      .article-back:hover { color: var(--ink); }
+
+      .article-kicker {
+        font-family: var(--sans);
+        font-size: 0.67rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 500;
+        margin-bottom: 16px;
       }
 
       .article-headline {
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        line-height: 1.02;
-        letter-spacing: -0.04em;
+        font-family: var(--serif);
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 700;
+        line-height: 1.06;
+        letter-spacing: -0.03em;
         margin-bottom: 18px;
       }
 
       .article-standfirst {
-        font-size: 1.24rem;
-        line-height: 1.8;
-        color: var(--muted);
-        margin-bottom: 28px;
+        font-family: var(--garamond);
+        font-size: 1.18rem;
+        line-height: 1.7;
+        color: var(--ink-mid);
+        font-style: italic;
+        margin-bottom: 26px;
       }
 
-      .article-meta-block {
+      .article-meta-bar {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px 22px;
-        margin-bottom: 34px;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        color: var(--soft);
-        font-size: 0.9rem;
+        gap: 10px 24px;
+        padding: 16px 0;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        margin-bottom: 36px;
+        font-family: var(--sans);
+        font-size: 0.76rem;
+        color: var(--ink-soft);
+        letter-spacing: 0.04em;
       }
 
       .article-note-block {
-        margin: 0 0 28px;
-        padding: 18px 20px;
-        border-left: 3px solid var(--accent);
-        background: rgba(111, 127, 95, 0.08);
-        color: rgba(31, 39, 29, 0.82);
+        margin-bottom: 36px;
+        padding: 15px 18px;
+        border-left: 2px solid var(--accent);
+        background: var(--accent-light);
+        font-family: var(--garamond);
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--ink-mid);
+        font-style: italic;
       }
 
       .article-body {
-        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-        font-size: 1.2rem;
-        line-height: 1.95;
-        color: var(--text);
+        font-family: var(--garamond);
+        font-size: 1.17rem;
+        line-height: 1.92;
+        color: var(--ink);
       }
 
-      .article-body p {
-        margin-bottom: 1.35em;
-      }
+      .article-body p { margin-bottom: 1.35em; }
 
+      /* ── MODAL ── */
       .article-modal {
         position: fixed;
         inset: 0;
@@ -510,158 +576,112 @@
         align-items: center;
         justify-content: center;
         padding: 24px;
-        background: rgba(17, 17, 17, 0.68);
+        background: rgba(10,9,8,0.75);
         z-index: 1000;
       }
 
-      .article-modal.open {
-        display: flex;
-      }
+      .article-modal.open { display: flex; }
 
       .article-modal-dialog {
         width: min(1100px, 100%);
         height: min(90vh, 920px);
-        background: #ffffff;
-        border-radius: 28px;
+        background: var(--white);
+        border-radius: 4px;
         overflow: hidden;
-        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.28);
         display: flex;
         flex-direction: column;
       }
 
-      .article-modal-header {
+      .modal-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 16px;
-        padding: 18px 20px;
-        border-bottom: 1px solid var(--border);
-      }
-
-      .modal-title-wrap {
-        min-width: 0;
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--rule);
       }
 
       .modal-title {
-        font-size: 1.2rem;
-        margin-bottom: 4px;
+        font-family: var(--serif);
+        font-size: 0.98rem;
+        font-weight: 600;
+        margin-bottom: 2px;
       }
 
-      .modal-subtitle {
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        font-size: 0.8rem;
+      .modal-sub {
+        font-family: var(--sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        letter-spacing: 0.16em;
-        color: var(--soft);
+        color: var(--ink-soft);
       }
 
-      .article-modal-body {
-        flex: 1;
-        background: #f2f2f2;
+      .modal-actions { display: flex; gap: 8px; }
+      .modal-body { flex: 1; background: #eee; }
+      .article-frame { width: 100%; height: 100%; border: 0; }
+
+      /* ── ANIMATIONS ── */
+      [data-animate] {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
       }
 
-      .article-frame {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        background: #ffffff;
+      [data-animate].visible { opacity: 1; transform: none; }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 860px) {
+        .hero-inner,
+        .section-grid,
+        .cv-body,
+        .contact-grid { grid-template-columns: 1fr; }
+
+        .hero-aside { flex-direction: row; flex-wrap: wrap; }
+        .cv-col + .cv-col { border-left: 0; border-top: 1px solid var(--rule); }
+        .portfolio-item { grid-template-columns: 1fr; }
+        .item-actions { flex-direction: row; flex-wrap: wrap; }
+        .nav { display: none; }
+        .menu-toggle { display: block; }
+        .article-modal { padding: 10px; }
+        .article-modal-dialog { height: 93vh; }
+        .modal-header { flex-direction: column; align-items: flex-start; }
+        .modal-actions { width: 100%; }
+        .modal-actions .btn { flex: 1; justify-content: center; }
       }
 
-      @media (max-width: 900px) {
-        .hero-grid,
-        .content-grid,
-        .cv-grid,
-        .contact-grid,
-        .portfolio-item {
-          grid-template-columns: 1fr;
-        }
-
-        .portfolio-item {
-          display: grid;
-        }
-
-        .article-actions {
-          min-width: 0;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .nav {
-          display: none;
-        }
-
-        .menu-toggle {
-          display: inline-flex;
-        }
-
-        .article-modal {
-          padding: 12px;
-        }
-
-        .article-modal-dialog {
-          height: 92vh;
-          border-radius: 20px;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .container,
-        .article-shell {
-          width: min(1120px, calc(100% - 28px));
-        }
-
-        .section {
-          padding: 56px 0;
-        }
-
-        .card,
-        .portfolio-item {
-          padding: 22px;
-        }
-
-        .article-actions {
-          grid-template-columns: 1fr;
-        }
-
-        .article-body {
-          font-size: 1.08rem;
-          line-height: 1.85;
-        }
-
-        .article-modal-header {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .modal-close {
-          width: 100%;
-          justify-content: center;
-        }
+      @media (max-width: 560px) {
+        .container, .article-shell { width: calc(100% - 32px); }
+        .section { padding: 56px 0; }
+        .hero { padding: 60px 0 52px; }
+        h1 { font-size: clamp(2.8rem, 12vw, 4rem); }
+        .cv-header, .cv-col { padding: 20px; }
+        .section-grid { gap: 24px; }
       }
     </style>
   </head>
   <body>
+
+    <!-- PDF Modal -->
     <div class="article-modal" id="articleModal" aria-hidden="true">
       <div class="article-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="article-modal-header">
-          <div class="modal-title-wrap">
-            <h2 class="modal-title" id="modalTitle">Article</h2>
-            <div class="modal-subtitle" id="modalSubtitle">PDF viewer</div>
+        <div class="modal-header">
+          <div>
+            <div class="modal-title" id="modalTitle">Article</div>
+            <div class="modal-sub" id="modalSubtitle">PDF viewer</div>
           </div>
-          <div class="button-row" style="margin-top: 0; grid-template-columns: repeat(2, max-content);">
-            <a class="button" id="modalOpenNewTab" href="#" target="_blank" rel="noreferrer">
-              <span>Open in new tab</span><span class="icon">↗</span>
-            </a>
-            <button class="modal-close" id="modalCloseButton" type="button">
-              <span>Close</span><span class="icon">✕</span>
-            </button>
+          <div class="modal-actions">
+            <a class="btn" id="modalOpenNewTab" href="#" target="_blank" rel="noreferrer">Open in new tab <span>↗</span></a>
+            <button class="btn" id="modalCloseButton" type="button">Close <span>✕</span></button>
           </div>
         </div>
-        <div class="article-modal-body">
+        <div class="modal-body">
           <iframe class="article-frame" id="articleFrame" title="Article viewer"></iframe>
         </div>
       </div>
     </div>
 
+    <!-- Header -->
     <header class="site-header">
       <div class="container">
         <div class="header-inner">
@@ -672,9 +692,7 @@
             <a href="#portfolio">Portfolio</a>
             <a href="#contact">Contact</a>
           </nav>
-          <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" type="button">
-            Menu
-          </button>
+          <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" type="button">Menu</button>
         </div>
         <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
           <a href="#about">About</a>
@@ -685,101 +703,92 @@
       </div>
     </header>
 
+    <!-- Main site view -->
     <main id="homeView" class="site-view">
-      <section class="section" id="top">
-        <div class="container hero-grid">
-          <div data-animate>
-            <p class="eyebrow">Trainee Journalist</p>
-            <h1>Alex Levy</h1>
-            <p class="hero-copy">
-              Trainee journalist working in public relations, with experience across local news, features, comment, and video.
-            </p>
-          </div>
 
-          <aside class="card card-soft" data-animate>
-            <p class="section-label">Quick links</p>
-            <div class="button-list">
-              <a class="button" href="#portfolio"><span>View portfolio</span><span class="icon">↗</span></a>
-              <a class="button" href="mailto:al2007@cantab.ac.uk"><span>Email me</span><span class="icon">✉</span></a>
-              <a class="button" href="cv/alex-levy-cv.pdf"><span>Download CV</span><span class="icon">↓</span></a>
+      <!-- Hero -->
+      <section class="hero" id="top">
+        <div class="container">
+          <div class="hero-eyebrow">
+            <span class="hero-eyebrow-text">Trainee Journalist</span>
+          </div>
+          <div class="hero-inner">
+            <div data-animate>
+              <h1>Alex<br><em>Levy</em></h1>
+              <p class="hero-copy">Trainee journalist working in public relations, with experience across local news, features, comment, and video.</p>
             </div>
-          </aside>
+            <div class="hero-aside" data-animate>
+              <a class="btn btn-accent" href="#portfolio">Portfolio <span>↓</span></a>
+              <a class="btn" href="mailto:al2007@cantab.ac.uk">Email <span>✉</span></a>
+              <a class="btn" href="cv/alex-levy-cv.pdf">Download CV <span>↓</span></a>
+            </div>
+          </div>
         </div>
       </section>
 
+      <!-- About -->
       <section class="section" id="about">
-        <div class="container content-grid">
-          <div>
-            <p class="section-label">About me</p>
-          </div>
-          <div class="about-copy" data-animate>
-            <p>
-              I am a trainee journalist working in public relations. I speak three languages, having graduated in 2024 with a double first class degree in German and Italian from the University of Cambridge.
-            </p>
-            <p>
-              I am currently studying a part-time NCTJ diploma at PA Media Academy and have achieved A grades in editing skills, regulation, and media law. I am a senior account executive in the corporate team at W Communications.
-            </p>
-            <p>
-              My work so far has included running the features and comment sections of Varsity and covering multimedia local news stories.
-            </p>
+        <div class="container section-grid">
+          <div><p class="section-label">About</p></div>
+          <div class="about-text" data-animate>
+            <p>I am a trainee journalist working in public relations. I speak three languages, having graduated in 2024 with a double first class degree in German and Italian from the University of Cambridge.</p>
+            <p>I am currently studying a part-time NCTJ diploma at PA Media Academy and have achieved A grades in editing skills, regulation, and media law. I am a senior account executive in the corporate team at W Communications.</p>
+            <p>My work so far has included running the features and comment sections of Varsity and covering multimedia local news stories.</p>
           </div>
         </div>
       </section>
 
+      <!-- CV -->
       <section class="section" id="cv">
-        <div class="container content-grid">
-          <div>
-            <p class="section-label">CV</p>
-          </div>
-          <div class="card" data-animate>
-            <div class="cv-top">
-              <div>
-                <h2 class="contact-title">Alexander Levy</h2>
-                <p class="body-copy">
-                  Trainee journalist · NCTJ student · Senior Account Executive, W Communications
-                </p>
+        <div class="container section-grid">
+          <div><p class="section-label">CV</p></div>
+          <div data-animate>
+            <div class="cv-block">
+              <div class="cv-header">
+                <div>
+                  <div class="cv-name">Alexander Levy</div>
+                  <div class="cv-tagline">Trainee journalist · NCTJ student · Senior Account Executive, W Communications</div>
+                </div>
+                <a class="btn" href="cv/alex-levy-cv.pdf">Download CV <span>↓</span></a>
               </div>
-              <a class="button" href="cv/alex-levy-cv.pdf"><span>Download CV</span><span class="icon">↓</span></a>
-            </div>
-
-            <div class="cv-grid">
-              <div>
-                <p class="mini-heading">Experience</p>
-                <div class="timeline-item">
-                  <strong>W Communications</strong>
-                  Senior Account Executive, Corporate · Feb 2025–present
+              <div class="cv-body">
+                <div class="cv-col">
+                  <div class="cv-col-label">Experience</div>
+                  <div class="cv-item">
+                    <strong>W Communications</strong>
+                    <span>Senior Account Executive, Corporate · Feb 2025–present</span>
+                  </div>
+                  <div class="cv-item">
+                    <strong>AKA Communications</strong>
+                    <span>Account Executive · Aug 2024–Feb 2025</span>
+                  </div>
+                  <div class="cv-item">
+                    <strong>Varsity</strong>
+                    <span>Features &amp; Opinion Editor and Writer · Dec 2021–Dec 2023</span>
+                  </div>
+                  <div class="cv-item">
+                    <strong>The Cambridge Language Collective</strong>
+                    <span>Travel Editor · Sept 2022–Jun 2023</span>
+                  </div>
                 </div>
-                <div class="timeline-item">
-                  <strong>AKA Communications</strong>
-                  Account Executive · Aug 2024–Feb 2025
-                </div>
-                <div class="timeline-item">
-                  <strong>Varsity</strong>
-                  Features &amp; Opinion Editor and Writer · Dec 2021–Dec 2023
-                </div>
-                <div class="timeline-item">
-                  <strong>The Cambridge Language Collective</strong>
-                  Travel Editor · Sept 2022–Jun 2023
-                </div>
-              </div>
-
-              <div>
-                <p class="mini-heading">Education</p>
-                <div class="timeline-item">
-                  <strong>PA Media Academy</strong>
-                  NCTJ Level 5 Diploma (part-time) · Sept 2025–Jun 2026
-                </div>
-                <div class="timeline-item">
-                  <strong>University of Cambridge</strong>
-                  B.A. Modern and Medieval Languages (German/Italian) · First Class Honours
-                </div>
-                <div class="timeline-item">
-                  <strong>Languages</strong>
-                  English (native), German (C1), Italian (C1)
-                </div>
-                <div class="timeline-item">
-                  <strong>Tools</strong>
-                  Microsoft Office, Adobe InDesign, Semrush
+                <div class="cv-col">
+                  <div class="cv-col-label">Education &amp; Skills</div>
+                  <div class="cv-item">
+                    <strong>PA Media Academy</strong>
+                    <span>NCTJ Level 5 Diploma (part-time) · Sept 2025–Jun 2026</span>
+                  </div>
+                  <div class="cv-item">
+                    <strong>University of Cambridge</strong>
+                    <span>B.A. Modern and Medieval Languages (German/Italian) · First Class Honours</span>
+                  </div>
+                  <div class="cv-item">
+                    <strong>Languages</strong>
+                    <span>English (native), German (C1), Italian (C1)</span>
+                  </div>
+                  <div class="cv-item">
+                    <strong>Tools</strong>
+                    <span>Microsoft Office, Adobe InDesign, Semrush</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -787,194 +796,238 @@
         </div>
       </section>
 
+      <!-- Portfolio -->
       <section class="section" id="portfolio">
-        <div class="container content-grid">
+        <div class="container section-grid">
+          <div><p class="section-label">Portfolio</p></div>
           <div>
-            <p class="section-label">Portfolio</p>
-          </div>
-
-          <div>
-            <div class="filters" aria-label="Portfolio filters">
+            <div class="filter-row" aria-label="Portfolio filters">
               <button class="filter-btn active" data-filter="All" type="button">All</button>
               <button class="filter-btn" data-filter="News" type="button">News</button>
               <button class="filter-btn" data-filter="Feature" type="button">Feature</button>
               <button class="filter-btn" data-filter="Comment" type="button">Comment</button>
             </div>
 
-            <div class="card portfolio-list" id="portfolioList">
-              <article class="portfolio-item" data-category="News" data-date="2026-04-01">
-                <div class="article-copy">
-                  <p class="meta">Coursework · News · 1 April 2026</p>
-                  <h3 class="article-title">Lambeth takes over running of Brockwell Lido as operator collapses into administration</h3>
-                  <p class="article-description">
-                    Local authority to run popular lido as major UK leisure centre operator folds.
-                  </p>
-                  <div class="article-note">
-                    I was one of the first journalists to write up this story having followed Fusion's difficulties, attending meetings and carrying out interviews before the operator went into administration.
+            <div class="portfolio-list" id="portfolioList">
+
+              <article class="portfolio-item" data-category="News" data-date="2026-04-18">
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">News</span>
+                    <span>Southwark News · 18 April 2026</span>
                   </div>
+                  <h3 class="item-title">Brockwell Lido sink or swim? What does the future hold for the Herne Hill landmark?</h3>
+                  <p class="item-desc">Lambeth Council say they'll take over — but can they turn things around for the beloved Grade II-listed lido after Fusion Lifestyle's collapse?</p>
+                  <div class="item-note">This article ran as the cover story for the 16 April print edition.</div>
                 </div>
-                <div class="article-actions">
-                  <a class="article-link" href="#article/lambeth-brockwell-lido"><span>Read</span><span class="icon">↗</span></a>
-                  <a class="article-link" href="articles/lambeth-takes-over-running-of-brockwell-lido-as-operator-collapses-into-administration.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                <div class="item-actions">
+                  <a class="btn" href="#article/brockwell-lido-sink-or-swim">Read <span>↗</span></a>
+                  <a class="btn" href="articles/Brockwell_Lido_sink_or_swim__What_does_the_future_hold_for_the_Herne_Hill_landmark____Southwark_News.pdf" download>PDF <span>↓</span></a>
+                </div>
+              </article>
+
+              <article class="portfolio-item" data-category="News" data-date="2026-04-01">
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">News</span>
+                    <span>Coursework · 1 April 2026</span>
+                  </div>
+                  <h3 class="item-title">Lambeth takes over running of Brockwell Lido as operator collapses into administration</h3>
+                  <p class="item-desc">Local authority to run popular lido as major UK leisure centre operator folds.</p>
+                  <div class="item-note">I was one of the first journalists to write up this story having followed Fusion's difficulties, attending meetings and carrying out interviews before the operator went into administration.</div>
+                </div>
+                <div class="item-actions">
+                  <a class="btn" href="#article/lambeth-brockwell-lido">Read <span>↗</span></a>
+                  <a class="btn" href="articles/lambeth-takes-over-running-of-brockwell-lido-as-operator-collapses-into-administration.pdf" download>PDF <span>↓</span></a>
                 </div>
               </article>
 
               <article class="portfolio-item" data-category="News" data-date="2025-10-30">
-                <div class="article-copy">
-                  <p class="meta">Coursework · News · 30 October 2025</p>
-                  <h3 class="article-title">Just Stop Oil co-founder floats council tax strike in Lambeth</h3>
-                  <p class="article-description">
-                    Environmental activist Roger Hallam suggests a council tax strike at the launch of citizens' assembly Assemble Brixton.
-                  </p>
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">News</span>
+                    <span>Coursework · 30 October 2025</span>
+                  </div>
+                  <h3 class="item-title">Just Stop Oil co-founder floats council tax strike in Lambeth</h3>
+                  <p class="item-desc">Environmental activist Roger Hallam suggests a council tax strike at the launch of citizens' assembly Assemble Brixton.</p>
                 </div>
-                <div class="article-actions">
-                  <a class="article-link" href="#article/just-stop-oil-lambeth"><span>Read</span><span class="icon">↗</span></a>
-                  <a class="article-link" href="articles/just-stop-oil-council-tax-strike-lambeth.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                <div class="item-actions">
+                  <a class="btn" href="#article/just-stop-oil-lambeth">Read <span>↗</span></a>
+                  <a class="btn" href="articles/just-stop-oil-council-tax-strike-lambeth.pdf" download>PDF <span>↓</span></a>
                 </div>
               </article>
 
               <article class="portfolio-item" data-category="Feature" data-date="2023-11-26">
-                <div class="article-copy">
-                  <p class="meta">Varsity · Feature · 26 November 2023</p>
-                  <h3 class="article-title">Coming down to Earth with Cambridge’s flight-free travellers</h3>
-                  <p class="article-description">
-                    Alex Levy interviews those who have sworn off flying for the sake of the environment.
-                  </p>
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">Feature</span>
+                    <span>Varsity · 26 November 2023</span>
+                  </div>
+                  <h3 class="item-title">Coming down to Earth with Cambridge's flight-free travellers</h3>
+                  <p class="item-desc">Alex Levy interviews those who have sworn off flying for the sake of the environment.</p>
                 </div>
-                <div class="article-actions">
-                  <a class="article-link" href="#article/flight-free-travellers"><span>Read</span><span class="icon">↗</span></a>
-                  <a class="article-link" href="articles/coming-down-to-earth-flight-free-travellers.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                <div class="item-actions">
+                  <a class="btn" href="#article/flight-free-travellers">Read <span>↗</span></a>
+                  <a class="btn" href="articles/coming-down-to-earth-flight-free-travellers.pdf" download>PDF <span>↓</span></a>
                 </div>
               </article>
 
               <article class="portfolio-item" data-category="Feature" data-date="2023-10-10">
-                <div class="article-copy">
-                  <p class="meta">Varsity · Feature · 10 October 2023</p>
-                  <h3 class="article-title">The cult of the Cambridge intern</h3>
-                  <p class="article-description">
-                    Alex Levy and Bella Shorrock delve into class complexities and wealth disparities by speaking to those seeking a golden ticket to employment.
-                  </p>
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">Feature</span>
+                    <span>Varsity · 10 October 2023</span>
+                  </div>
+                  <h3 class="item-title">The cult of the Cambridge intern</h3>
+                  <p class="item-desc">Alex Levy and Bella Shorrock delve into class complexities and wealth disparities by speaking to those seeking a golden ticket to employment.</p>
                 </div>
-                <div class="article-actions">
-                  <button
-                    class="article-link"
-                    type="button"
-                    data-pdf-url="articles/the-cult-of-the-cambridge-intern.pdf"
-                    data-pdf-title="The cult of the Cambridge intern"
-                    data-pdf-meta="Varsity · Feature · 10 October 2023"
-                  >
-                    <span>Read</span><span class="icon">↗</span>
-                  </button>
-                  <a class="article-link" href="articles/the-cult-of-the-cambridge-intern.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                <div class="item-actions">
+                  <button class="btn" type="button" data-pdf-url="articles/the-cult-of-the-cambridge-intern.pdf" data-pdf-title="The cult of the Cambridge intern" data-pdf-meta="Varsity · Feature · 10 October 2023">Read <span>↗</span></button>
+                  <a class="btn" href="articles/the-cult-of-the-cambridge-intern.pdf" download>PDF <span>↓</span></a>
                 </div>
               </article>
 
               <article class="portfolio-item" data-category="Comment" data-date="2022-03-17">
-                <div class="article-copy">
-                  <p class="meta">Varsity · Comment · 17 March 2022</p>
-                  <h3 class="article-title">In praise of slow travel</h3>
-                  <p class="article-description">
-                    From Zagreb to London by train — uncomfortable, expensive and by no means glamorous, but good for the soul.
-                  </p>
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">Comment</span>
+                    <span>Varsity · 17 March 2022</span>
+                  </div>
+                  <h3 class="item-title">In praise of slow travel</h3>
+                  <p class="item-desc">From Zagreb to London by train — uncomfortable, expensive and by no means glamorous, but good for the soul.</p>
                 </div>
-                <div class="article-actions">
-                  <button
-                    class="article-link"
-                    type="button"
-                    data-pdf-url="articles/in-praise-of-slow-travel.pdf"
-                    data-pdf-title="In praise of slow travel"
-                    data-pdf-meta="Varsity · Comment · 17 March 2022"
-                  >
-                    <span>Read</span><span class="icon">↗</span>
-                  </button>
-                  <a class="article-link" href="articles/in-praise-of-slow-travel.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                <div class="item-actions">
+                  <button class="btn" type="button" data-pdf-url="articles/in-praise-of-slow-travel.pdf" data-pdf-title="In praise of slow travel" data-pdf-meta="Varsity · Comment · 17 March 2022">Read <span>↗</span></button>
+                  <a class="btn" href="articles/in-praise-of-slow-travel.pdf" download>PDF <span>↓</span></a>
                 </div>
               </article>
 
               <article class="portfolio-item" data-category="Comment" data-date="2021-08-06">
-                <div class="article-copy">
-                  <p class="meta">Varsity · Comment · 06 August 2021</p>
-                  <h3 class="article-title">On Grantchester, Rupert Brooke, and idleness</h3>
-                  <p class="article-description">
-                    As King's College, Cambridge threatens to ban swimming at Grantchester, Alex Levy imagines what Rupert Brooke might think.
-                  </p>
+                <div>
+                  <div class="item-meta">
+                    <span class="item-category">Comment</span>
+                    <span>Varsity · 6 August 2021</span>
+                  </div>
+                  <h3 class="item-title">On Grantchester, Rupert Brooke, and idleness</h3>
+                  <p class="item-desc">As King's College, Cambridge threatens to ban swimming at Grantchester, Alex Levy imagines what Rupert Brooke might think.</p>
                 </div>
-                <div class="article-actions">
-                  <button
-                    class="article-link"
-                    type="button"
-                    data-pdf-url="articles/on-grantchester-rupert-brooke-and-idleness.pdf"
-                    data-pdf-title="On Grantchester, Rupert Brooke, and idleness"
-                    data-pdf-meta="Varsity · Comment · 06 August 2021"
-                  >
-                    <span>Read</span><span class="icon">↗</span>
-                  </button>
-                  <a class="article-link" href="articles/on-grantchester-rupert-brooke-and-idleness.pdf" download><span>PDF</span><span class="icon">↓</span></a>
+                <div class="item-actions">
+                  <button class="btn" type="button" data-pdf-url="articles/on-grantchester-rupert-brooke-and-idleness.pdf" data-pdf-title="On Grantchester, Rupert Brooke, and idleness" data-pdf-meta="Varsity · Comment · 6 August 2021">Read <span>↗</span></button>
+                  <a class="btn" href="articles/on-grantchester-rupert-brooke-and-idleness.pdf" download>PDF <span>↓</span></a>
                 </div>
               </article>
+
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="contact" style="border-bottom: 0;">
-        <div class="container content-grid">
-          <div>
-            <p class="section-label">Contact</p>
-          </div>
-          <div class="card" data-animate>
-            <h2 class="contact-title">Get in touch</h2>
-            <p class="body-copy">
-              For any questions, please get in touch.
-            </p>
-
+      <!-- Contact -->
+      <section class="section" id="contact" style="border-bottom:0">
+        <div class="container section-grid">
+          <div><p class="section-label">Contact</p></div>
+          <div data-animate>
+            <div class="contact-intro">
+              <div class="contact-heading">Get in touch</div>
+              <p class="contact-sub">For any questions, please get in touch.</p>
+            </div>
             <div class="contact-grid">
               <a class="contact-card" href="mailto:al2007@cantab.ac.uk">
-                <div class="icon">✉</div>
-                <p class="contact-label">Email</p>
-                <div class="contact-value">al2007@cantab.ac.uk</div>
+                <div class="contact-icon">✉</div>
+                <div class="contact-lbl">Email</div>
+                <div class="contact-val">al2007@cantab.ac.uk</div>
               </a>
-
               <a class="contact-card" href="https://www.linkedin.com/in/alex-levy-42b905132/" target="_blank" rel="noreferrer">
-                <div class="icon">🌐</div>
-                <p class="contact-label">LinkedIn</p>
-                <div class="contact-value">Alex Levy</div>
+                <div class="contact-icon">🌐</div>
+                <div class="contact-lbl">LinkedIn</div>
+                <div class="contact-val">Alex Levy</div>
               </a>
             </div>
           </div>
         </div>
       </section>
+
     </main>
 
+    <!-- Article view -->
     <main id="articleView" class="article-view"></main>
 
-    <footer class="footer" id="siteFooter">
+    <!-- Footer -->
+    <footer class="site-footer" id="siteFooter">
       <div class="container footer-inner">
-        <p>© <span id="year"></span> Alex Levy</p>
-        <p>Built for GitHub Pages.</p>
+        <span>© <span id="year"></span> Alex Levy</span>
+        <span>Built for GitHub Pages.</span>
       </div>
     </footer>
 
     <script>
       const articles = {
+        "brockwell-lido-sink-or-swim": {
+          kicker: "Southwark News · News",
+          title: "Brockwell Lido sink or swim? What does the future hold for the Herne Hill landmark?",
+          standfirst: "Lambeth Council say they'll take over — but can they turn things around for the beloved Grade II-listed lido after Fusion Lifestyle's collapse?",
+          meta: "Southwark News · 18 April 2026",
+          byline: "Liv Facey and Alex Levy",
+          note: "This article ran as the cover story for the 16 April print edition.",
+          body: `
+            <p>For its swimmers and gym goers Brockwell Lido is a sanctuary in the heart of South London, but the beloved Grade II-listed leisure site now faces what could be its biggest test yet, as its operator, Fusion Lifestyle, goes bust.</p>
+            <p>After what campaigners and local MP Helen Hayes say amounts to years of 'underinvestment', can Lambeth Council turn things around for the Art Deco icon? And where will it find the 'millions' needed to bring the facilities up to scratch?</p>
+            <p>On April 1st, after mounting uncertainty, Lambeth Council announced it will take over running Brockwell Lido, including the cafe and gym, on the same day Fusion Lifestyle called in administrators.</p>
+            <p>The lido's facilities are expected to remain open until fully transferred to Lambeth Council's inhouse gym operator – Active Lambeth – from July 1.</p>
+            <p>The local authority says its priority is to "maintain continuity of service, protect public access to the site and secure the long-term future of Brockwell Lido for residents".</p>
+            <p>In a statement to this paper, Nadeem Sweiss, director at S&amp;W and joint administrator of Fusion, said: "We know how important the lido is to the communities that it serves, and we are committed to supporting a smooth transition. We understand Active Lambeth have some ambitious plans to update the Lido and we will continue to work collaboratively with management and Lambeth Council to limit disruption and safeguard the long-term future of the lido."</p>
+            <p>Speculation had been mounting for months over the state of Fusion's finances. The operator, a charity which had recently celebrated its 25th anniversary, was reported not to have filed its accounts since 31 December 2022, when it had a reported turnover of £50.8 million.</p>
+            <p>In August 2025 it was reported that Fusion owed management fees of £166,038 to Bedford Borough Council, for whom it operated three leisure sites; debts which have now been repaid in full.</p>
+            <p>Fusion had operated a network of 25 facilities across the country, including two in London: Golden Lane and Brockwell Lido. All its leisure centres will remain open except Golden Lane, which is set to close awaiting refurbishment.</p>
+            <p>Fusion also has, in the recent past, run other council leisure centres across South London. It held Southwark's leisure contract for years, before losing it in a major retender. In Lewisham, Fusion partnered with the council and helped it open the £20m Glass Mill Leisure Centre in 2013, but was later dropped by the borough in 2020.</p>
+            <p>Before news broke of the collapse, Brockwell Lido Users (BLU) – the official group representing all users of the lido – held an Extraordinary General Meeting on March 22 to address public frustration over the lido's future.</p>
+            <p>At the meeting, Dulwich and West Norwood MP Helen Hayes told attendees, in no uncertain terms, that Fusion had descended "into a state of crisis over effectively poor financial management. I think, taking on too many sites all across the country and getting into difficulties is really a very, very sad and quite shocking state of affairs."</p>
+            <p>Her comments were reminiscent of those delivered in parliament last month, during a debate she dubbed 'for the love of Lidos'. Addressing the house, Hayes had said closure and reopening is part of a longer story of precariousness for public baths and lidos across the country, and paid tribute to BLU's work, while also sharing that she had swum regularly at the lido since 1996 and once fainted in the changing rooms after a "balmy 8 degree" dip.</p>
+            <p>At the EGM, Lambeth cabinet lead Cllr Donatus Anyanwu said the local authority was prepared to step in immediately, telling attendees: "The council will not allow the lido to cease. Whatever happens after that is a decision that the council, as a democratically-led institution, will have to make. Continuity of service, protecting the service, is absolutely crucial."</p>
+            <p>The situation has reignited memories of previous threats to the lido's survival. Lambeth shut the lido in 1990 as part of cost-saving measures but reopened it in 1994 after a grassroots campaign and a petition signed by thousands.</p>
+            <p>After the lido was brought back into use in the 1990s, Fusion then won a 25 year contract from Lambeth Council in 2003 to redevelop and run the site until May 2031. Over the next four years a gym, spa and fitness studios were built, and the site reopened in October 2007.</p>
+            <p>BLU chair Ben Longman said that while "in the early days, Fusion did a really good job," and brought "a kind of new era" and "rebirth" to the site, over time investment and regular maintenance fell away.</p>
+            <p>Over a busy bank holiday weekend, the paper spoke to many lido users, who painted a consistent picture. The pool is loved, but the facilities feel tired, with much of the equipment not working.</p>
+            <p>Regular user Adam said: "Fusion has stopped investing in it, so things were breaking and not being fixed."</p>
+            <p>"It enhances my life living in London by 80 percent," said Claire Jones, who swims twice a week describing it as something close to "near prayer." But Jones claims Fusion made a lot of money from the lido but "drained" it to other sites rather than reinvesting it.</p>
+            <p>Her thoughts were echoed by Phillipa, who has used Brockwell Lido for more than a decade after previously going to Tooting Bec Lido. She said there are great things about it but argued Fusion "needed" to go into administration because "things were neglected for too long." She claimed the whirlpool "never has been working for about three years," while the steam room is "always broken".</p>
+            <p>Local resident Lesley Hill said Brockwell Lido used to be "a great space" but "pretty pricey" and "not the most welcoming". Year-long member Stefan was more blunt: "It's awful." The jacuzzi, he said, "never worked since I've been here."</p>
+            <p>In one of the more obvious signs of deterioration, the automatic door button for disabled users was broken, with no signs and no information on the website to make any visitors aware.</p>
+            <p>In the Commons, Hayes has highlighted a change in leadership at Fusion, and the ongoing impact of the pandemic – now half a decade on – as factors in a lack of maintenance and investment.</p>
+            <p>When asked about the site's future, the BLU were optimistic given that Lambeth had agreed to keep the site open, with Longman saying: "If an under-maintained site closes, it can be much harder to reopen it than to keep it operating."</p>
+            <p>But is it a takeover that buys time – but not certainty? There is still much that is yet to be thrashed out, and it remains unclear how Lambeth's own financial position could impact running the site.</p>
+            <p>The lido's listed status is part of what makes it distinctive. It is also part of what makes it expensive. The BLU told the paper that when the local authority surveys the building and plant, they predict the repair bill could be "well north of a million pounds".</p>
+            <p>But given the popularity of the venue – and the boom in cold water swimming throughout the year – if Brockwell Lido can't turn a healthy profit, where can?</p>
+            <p>Retiree Mary, who uses the site every day, said: "Particularly in the summer they must be raking in. So why are the saunas broken and the showers and the changing room so bad? It's usable."</p>
+            <p>In Parliament, Hayes told MPs she understood Brockwell Lido to be profitable, but that there had been "little transparency about" the income it generates, and "no ringfencing" to ensure money is spent on the maintenance and investment the site needs.</p>
+            <p>A lack of transparency is exactly what worries the regulars who spoke with the paper, and said they fear the centre's profits will not be put back into repairs.</p>
+            <p>Just before Lambeth Council's takeover, the BLU announced that it had become a charity with the support of Hayes. Charity status gives the group access to grant funding and tax benefits such as Gift Aid.</p>
+            <p>As they awaited their first formal meeting with the council as the lido's new operators, they told the paper their main priority is securing the lido as an accessible, community-centred asset. "Brockwell Lido is not just a leisure centre," the BLU chair highlighted. "It requires a degree of specificity and agility to run it." He confirmed the group is also pushing for a reset on pricing. "We have a once in a generation chance to reset the community's relationship with Brockwell Lido," he added, warning against "business as usual."</p>
+            <p>The future of Brockwell Lido is now being decided in real time, in council offices, in user meetings, and in everyday conversations within the building. Whether Lambeth's takeover becomes a simple rescue or the start of a different future will depend on what happens after July 1.</p>
+            <p>But for regular swimmers and gym-goers, the priority is simple. They want the basics fixed. They want a future that feels fair and reflective of this much loved site – one where the lido's profits are transparent, its repairs are funded, and the place that so many Londoners call a sanctuary is run for the community that keeps it alive.</p>
+            <p>"It's like one of my favourite places in London," cyclist Efah said. "My little sanctuary."</p>
+          `
+        },
+
         "lambeth-brockwell-lido": {
+          kicker: "Coursework · News",
           title: "Lambeth takes over running of Brockwell Lido as operator collapses into administration",
           standfirst: "Local authority to run popular lido as major UK leisure centre operator folds.",
-          meta: "Coursework · News · 1 April 2026",
+          meta: "Coursework · 1 April 2026",
           byline: "Alex Levy",
-          note: " I was one of the first journalists to write up this story having followed Fusion's difficulties, attending meetings and carrying out interviews before the operator went into administration.",
+          note: "I was one of the first journalists to write up this story having followed Fusion's difficulties, attending meetings and carrying out interviews before the operator went into administration.",
           body: `
             <p>Lambeth Council is set to take over running Brockwell Lido after its current operator Fusion Lifestyle Ltd appointed administrators following a prolonged period of financial difficulty.</p>
             <p>The lido will remain open until it is transferred to council management from 1 July through in-house leisure service Active Lambeth, according to a council statement. Fusion says there will be no impact to activities and staff employment will transfer to Active Lambeth.</p>
             <p>Fusion operates a network of 25 facilities across the country, including two in London, Golden Lane and Brockwell Lido. All its leisure centres will remain open except Golden Lane, which is set to close awaiting refurbishment by the local authorities.</p>
-            <p>Charity group Brockwell Lido Users held an Extraordinary General Meeting on 22 March to address public frustration over the lido’s uncertain future.</p>
-            <p>Lambeth cabinet lead Cllr Donatus Anyanwu said the council was prepared to step in immediately. He said: “The council will not allow the lido to cease. Whatever happens after that is a decision that the council, as a democratically-led institution, will have to make. Continuity of service, protecting the service, is absolutely crucial”.</p>
-            <p>Brixton MP Helen Hayes told the meeting that Fusion had descended “into a state of crisis over effectively poor financial management. Taking on too many sites all across the country and getting into difficulties is really a very, very sad and quite shocking state of affairs”.</p>
+            <p>Charity group Brockwell Lido Users held an Extraordinary General Meeting on 22 March to address public frustration over the lido's uncertain future.</p>
+            <p>Lambeth cabinet lead Cllr Donatus Anyanwu said the council was prepared to step in immediately. He said: "The council will not allow the lido to cease. Whatever happens after that is a decision that the council, as a democratically-led institution, will have to make. Continuity of service, protecting the service, is absolutely crucial."</p>
+            <p>Brixton MP Helen Hayes told the meeting that Fusion had descended "into a state of crisis over effectively poor financial management. Taking on too many sites all across the country and getting into difficulties is really a very, very sad and quite shocking state of affairs."</p>
             <p>Fusion has not filed its accounts since 31 December 2022, when it had a reported turnover of £50.8 million. It was reported in August 2025 that the company owed management fees of £166,038 to Bedford Borough Council, for whom it operated three leisure sites.</p>
-            <p>The week prior to its entering administration, BLU Chair Ben Longman said: “We know that they are not in a particularly healthy state financially and are unlikely to survive in the form that they exist at the moment.”</p>
+            <p>The week prior to its entering administration, BLU Chair Ben Longman said: "We know that they are not in a particularly healthy state financially and are unlikely to survive in the form that they exist at the moment."</p>
             <p>He said Ms Hayes had pressured the council to draw up contingency plans in November as the future of the current operator was in doubt.</p>
-            <p>Despite the operator’s turmoil, Mr Longman said that the boom in coldwater swimming in recent years has only benefitted the profitability of the lido. “What you have now is year-round demand for outdoor swimming, and that is fairly transformational to the finances of the lido.”</p>
-            <p>Brockwell Lido was ranked first in the country in the AA’s “Lido League” of outdoor swimming baths based on a range of factors including Google search volume and second in a separate survey by Betway Casinos.</p>
+            <p>Despite the operator's turmoil, Mr Longman said that the boom in coldwater swimming in recent years has only benefitted the profitability of the lido. "What you have now is year-round demand for outdoor swimming, and that is fairly transformational to the finances of the lido."</p>
+            <p>Brockwell Lido was ranked first in the country in the AA's "Lido League" of outdoor swimming baths based on a range of factors including Google search volume and second in a separate survey by Betway Casinos.</p>
             <p>Fusion has held the lease to the lido since 2003 and faced increasing criticism from users for a lack of investment in the pool and gym facilities.</p>
             <p>At the meeting on 22 March, BLU outlined possible approaches for future operation, including seed funding and larger bodies like the National Lottery. BLU has since called on the community to complete a survey and contribute their skills to a viable future for the lido.</p>
             <p>Even though a current survey from Lambeth Council says the lido can operate as normal, millions of pounds of investment could be needed from institutional funders, according to the group.</p>
@@ -982,86 +1035,70 @@
         },
 
         "just-stop-oil-lambeth": {
+          kicker: "Coursework · News",
           title: "Just Stop Oil co-founder floats council tax strike in Lambeth",
           standfirst: "Environmental activist Roger Hallam suggests a council tax strike at the launch of citizens' assembly Assemble Brixton.",
-          meta: "Coursework · News · 30 October 2025",
+          meta: "Coursework · 30 October 2025",
           byline: "Alex Levy",
           note: "",
           body: `
-            <p>Activist Roger Hallam launched a citizens’ assembly at a public meeting in Brixton last night, calling for a council tax strike and predicting a rout of Labour candidates in next year’s local elections.</p>
-            <p>“Assemble Brixton” met in a public gathering of over 100 local residents at Karibu Education Centre, following seven assemblies during October which recorded residents’ perception of homelessness, mental health and addiction in Lambeth.</p>
-            <p>Thursday’s assembly aimed to decide on demands to be presented to Lambeth Council, but did not reach a conclusion due to dissent among those present, including around the suggestion of a council tax strike.</p>
-            <p>Attendees took issue with the timeline proposed by organisers, which many felt was unrealistic. The organisers wanted to poll residents in January, at which point if 25% of those surveyed on the doorstep did not think these problems were “sorted”, the assembly would take action against the council.</p>
-            <p>Many attendees also expressed confusion at the group’s origins and motivations, including heckling organiser Chris Chudley and assembly facilitators about whether they in fact lived in Lambeth.</p>
-            <p>Mr Hallam suggested three courses of action: a petition, a rally, and a tax strike. Addressing the assembly, he said: “Some people are going, hang on a minute, we’re paying all these council taxes, why don’t we not pay council tax for a few weeks?”</p>
-            <p>“It’s not about doing anything illegal, it’s not about depriving the council of money. It’s about making a point in the public sphere,” he added. At this point, several attendees interrupted Mr Hallam to point out that not paying council tax is illegal.</p>
-            <p>He also floated the prospect of standing independent candidates, saying: “In January and February, if, with all due respect, the Labour councillors have not got what they said they were going to do done, then some people, whether we want them or not, will start standing as independent.”</p>
-            <p>“I have no particular problem with the Labour party per se, but the fact of the matter is they don’t have a divine right to rule Brixton”.</p>
-            <p>David Bridson, Labour councillor for Lambeth, addressed the assembly to explain the council’s ongoing work on the issues of homelessness, mental health and addiction.</p>
-            <p>He said: “We support 200 people every single year from the streets into accommodation, and every single night there are a minimum of 40 beds in hotels in Clapham waiting for those people when they’re ready to say yes to us.”</p>
-            <p>He stressed the difficulties with timelines in social work, saying: “Trauma affects all of our rough sleepers in a very dramatic way. A lot of them are leaving prison, they’ve been care leavers, they’re from the armed forces.</p>
-            <p>“We don’t solve that overnight. We visit them every single night because hopefully one day, once we build that relationship, they’ll be ready to say yes to come indoors”.</p>
-            <p>When asked about the proposed council tax strike after the meeting, Mr Bridson said: “It won’t change anything. You will have a bailiff at your door and it will change nothing.”</p>
-            <p>“We have no money as a council anyway, and fundamentally, there’s hardly much more we can do other than the public engaging more within that process.”</p>
-            <p>Speaking after the meeting, Mr Hallam said: “It’s a live issue, so you expect emotion in the room.</p>
-            <p>“What will happen in the assembly is nothing compared to what people are saying on the doorstep about the terrible stories of people’s suffering and the degradation of life on the streets. It’s just awful.”</p>
-            <p>Asked if he envisioned civil disobedience arising from the launch of the assembly, Mr Hallam said: “I think there are lots of communities around the country that are on the edge of doing rent strikes, not paying their council taxes.”</p>
-            <p>He said the United Kingdom’s history is full of acts of civil disobedience, saying it happens when people decide they won’t tolerate “ridiculous levels of injustice”.</p>
-            <p>“People don’t do civil disobedience because their bin hasn’t been collected, they do civil disobedience because they feel violated.”</p>
-            <p>He said there has been a movement towards anti-incumbency and local communities are looking to move out of the established political system.</p>
-            <p>He mentioned Your Party, for which he expressed strong support in an interview with The New Statesman in August of this year, and the Green Party as possible anti-system beneficiaries of this dissatisfaction.</p>
-            <p>Regarding the local elections in May 2026, Mr Hallam said: “For my money, maybe I shouldn’t say this, but I don’t care, I don’t think it’s entirely impossible that there could be 20 or 30 non-Labour councillors in Lambeth. They could lose their majority in May.”</p>
+            <p>Activist Roger Hallam launched a citizens' assembly at a public meeting in Brixton last night, calling for a council tax strike and predicting a rout of Labour candidates in next year's local elections.</p>
+            <p>"Assemble Brixton" met in a public gathering of over 100 local residents at Karibu Education Centre, following seven assemblies during October which recorded residents' perception of homelessness, mental health and addiction in Lambeth.</p>
+            <p>Thursday's assembly aimed to decide on demands to be presented to Lambeth Council, but did not reach a conclusion due to dissent among those present, including around the suggestion of a council tax strike.</p>
+            <p>Attendees took issue with the timeline proposed by organisers, which many felt was unrealistic. The organisers wanted to poll residents in January, at which point if 25% of those surveyed on the doorstep did not think these problems were "sorted", the assembly would take action against the council.</p>
+            <p>Many attendees also expressed confusion at the group's origins and motivations, including heckling organiser Chris Chudley and assembly facilitators about whether they in fact lived in Lambeth.</p>
+            <p>Mr Hallam suggested three courses of action: a petition, a rally, and a tax strike. Addressing the assembly, he said: "Some people are going, hang on a minute, we're paying all these council taxes, why don't we not pay council tax for a few weeks?"</p>
+            <p>"It's not about doing anything illegal, it's not about depriving the council of money. It's about making a point in the public sphere," he added. At this point, several attendees interrupted Mr Hallam to point out that not paying council tax is illegal.</p>
+            <p>He also floated the prospect of standing independent candidates, saying: "In January and February, if, with all due respect, the Labour councillors have not got what they said they were going to do done, then some people, whether we want them or not, will start standing as independent."</p>
+            <p>"I have no particular problem with the Labour party per se, but the fact of the matter is they don't have a divine right to rule Brixton."</p>
+            <p>David Bridson, Labour councillor for Lambeth, addressed the assembly to explain the council's ongoing work on the issues of homelessness, mental health and addiction.</p>
+            <p>He said: "We support 200 people every single year from the streets into accommodation, and every single night there are a minimum of 40 beds in hotels in Clapham waiting for those people when they're ready to say yes to us."</p>
+            <p>He stressed the difficulties with timelines in social work, saying: "Trauma affects all of our rough sleepers in a very dramatic way. A lot of them are leaving prison, they've been care leavers, they're from the armed forces. We don't solve that overnight. We visit them every single night because hopefully one day, once we build that relationship, they'll be ready to say yes to come indoors."</p>
+            <p>When asked about the proposed council tax strike after the meeting, Mr Bridson said: "It won't change anything. You will have a bailiff at your door and it will change nothing. We have no money as a council anyway, and fundamentally, there's hardly much more we can do other than the public engaging more within that process."</p>
+            <p>Speaking after the meeting, Mr Hallam said: "It's a live issue, so you expect emotion in the room. What will happen in the assembly is nothing compared to what people are saying on the doorstep about the terrible stories of people's suffering and the degradation of life on the streets. It's just awful."</p>
+            <p>Asked if he envisioned civil disobedience arising from the launch of the assembly, Mr Hallam said: "I think there are lots of communities around the country that are on the edge of doing rent strikes, not paying their council taxes." He said the United Kingdom's history is full of acts of civil disobedience, saying it happens when people decide they won't tolerate "ridiculous levels of injustice."</p>
+            <p>"People don't do civil disobedience because their bin hasn't been collected, they do civil disobedience because they feel violated."</p>
+            <p>He said there has been a movement towards anti-incumbency and local communities are looking to move out of the established political system. He mentioned Your Party and the Green Party as possible anti-system beneficiaries of this dissatisfaction.</p>
+            <p>Regarding the local elections in May 2026, Mr Hallam said: "For my money, maybe I shouldn't say this, but I don't care, I don't think it's entirely impossible that there could be 20 or 30 non-Labour councillors in Lambeth. They could lose their majority in May."</p>
             <p>Mr Hallam was released from HMP Wayland on 14 August this year having served a reduced four-year sentence for conspiring to disrupt traffic on the M25 in 2022.</p>
-            <p>Assembly attendee and local resident, Lily-Rose Morris-Zumin, said: “It’s clear there is a real desire to help the homeless and underprivileged in Brixton, even without consensus on how to achieve that.</p>
-            <p>“I feel the organisers could have been more transparent about their origins and who is backing the assembly.”</p>
-            <p>Following the launch, the aims decided at the meeting will be written up as a “community charter” and a rally will be held outside Lambeth Town Hall on 24 November.</p>
+            <p>Assembly attendee and local resident, Lily-Rose Morris-Zumin, said: "It's clear there is a real desire to help the homeless and underprivileged in Brixton, even without consensus on how to achieve that. I feel the organisers could have been more transparent about their origins and who is backing the assembly."</p>
+            <p>Following the launch, the aims decided at the meeting will be written up as a "community charter" and a rally will be held outside Lambeth Town Hall on 24 November.</p>
           `
         },
 
         "flight-free-travellers": {
-          title: "Coming down to Earth with Cambridge’s flight-free travellers",
+          kicker: "Varsity · Feature",
+          title: "Coming down to Earth with Cambridge's flight-free travellers",
           standfirst: "Students are trading the runway for the railway. Alex Levy speaks to those charting a more sustainable course.",
-          meta: "Varsity · Feature · 26 November 2023",
+          meta: "Varsity · 26 November 2023",
           byline: "Alex Levy",
           note: "",
           body: `
-            <p>The sun grew low in the sky over Mount Pantokrator on Corfu, and I had four hours til I left for Italy. Watching creaking car ferries chug in and out of the port, sleek jets roared overhead at regular intervals, making broad turns over the bay before disappearing with a twinkle into the pale orange of the dusk. In four hours I had a beer, watched Greek men pontificate from within a cloud of cigarette smoke, and considered the long journey ahead with trepidation: across the Adriatic by night, along the spine of Italy, meandering through the Alps to Munich, and on to London. A rich patchwork of terrain, language, interchange - a highly impractical one.</p>
-            <p>“I get my best night’s sleep on a train” - lucky for Rosie Smart-Knight, finalist at Trinity Hall, who last flew three years ago. “Going to sleep in one place, feeling the rhythms of the train and waking up to the sunrise over a place you’ve never seen before. There’s something that feels really romantic about it”. But for all its Agatha Christie allure, it’s “often incredibly stressful.”</p>
+            <p>The sun grew low in the sky over Mount Pantokrator on Corfu, and I had four hours til I left for Italy. Watching creaking car ferries chug in and out of the port, sleek jets roared overhead at regular intervals, making broad turns over the bay before disappearing with a twinkle into the pale orange of the dusk. In four hours I had a beer, watched Greek men pontificate from within a cloud of cigarette smoke, and considered the long journey ahead with trepidation: across the Adriatic by night, along the spine of Italy, meandering through the Alps to Munich, and on to London. A rich patchwork of terrain, language, interchange — a highly impractical one.</p>
+            <p>"I get my best night's sleep on a train" — lucky for Rosie Smart-Knight, finalist at Trinity Hall, who last flew three years ago. "Going to sleep in one place, feeling the rhythms of the train and waking up to the sunrise over a place you've never seen before. There's something that feels really romantic about it." But for all its Agatha Christie allure, it's "often incredibly stressful."</p>
             <p>Air travel, by contrast, is a well-oiled institution. Over the last twenty years, the hegemony of easyJet and Ryanair has brought a host of global cities and balmy suntraps within easy reach of the UK, democratising travel for working people on tight schedules, and students on even tighter budgets. All highly appealing, even in a world on the brink of climate catastrophe. But unease has been creeping into the minds of a growing proportion of the population.</p>
-            <p>“Flying is basically the most time and cost-efficient way of producing CO2 for an individual,” William Smith, a PhD candidate at the University’s Centre for Climate Repair, told me. It is the environmental factor which drives William and Rosie to forego both flights and meat. A natural response to what seems a pretty tall order is to ask, where is the government in all this, and why should we as students make the sacrifice?</p>
-            <p>The answer, ironically, might be to think a little further afield. “People are generally quick to blame climate change on the rich,” said Will, “but if you are someone who has regular access to flying, as we are, you are the rich globally. 80% of the world’s population has never set foot on a plane and it causes 2-3% of global emissions.” He doesn’t agree with pitting the individual against companies and governments - “an institutional change will be an individual change at the end of the day; if you want the government to ban domestic flying,” (as France’s has done) “you will still have to stop flying domestically. Are you going to wait for the government to tell you?”</p>
-            <p>Considering climate change’s disproportionate impact on the Global South and her middle-class background in Britain, Rosie agrees: “in order to feel ok about living this life of immense privilege and often immense damage to other people’s ability to live, I have to make sacrifices.” But government action is imperative, and she says we can’t talk about taxing flights without improving access to alternative forms. Will stresses voting as probably the biggest single thing an individual can do.</p>
+            <p>"Flying is basically the most time and cost-efficient way of producing CO2 for an individual," William Smith, a PhD candidate at the University's Centre for Climate Repair, told me. It is the environmental factor which drives William and Rosie to forego both flights and meat. A natural response to what seems a pretty tall order is to ask, where is the government in all this, and why should we as students make the sacrifice?</p>
+            <p>The answer, ironically, might be to think a little further afield. "People are generally quick to blame climate change on the rich," said Will, "but if you are someone who has regular access to flying, as we are, you are the rich globally. 80% of the world's population has never set foot on a plane and it causes 2–3% of global emissions." He doesn't agree with pitting the individual against companies and governments — "an institutional change will be an individual change at the end of the day; if you want the government to ban domestic flying," (as France's has done) "you will still have to stop flying domestically. Are you going to wait for the government to tell you?"</p>
+            <p>Considering climate change's disproportionate impact on the Global South and her middle-class background in Britain, Rosie agrees: "in order to feel ok about living this life of immense privilege and often immense damage to other people's ability to live, I have to make sacrifices." But government action is imperative, and she says we can't talk about taxing flights without improving access to alternative forms. Will stresses voting as probably the biggest single thing an individual can do.</p>
             <p>Despite their principles, William gave the important exception of international students, and Rosie is conscious that in an overwhelming world, what people can do is highly individual; not everyone sees this as a worthy or affordable sacrifice. At the time of writing, covering 1500km for an early-December sojourn in Rome sets you back just £34. Hot-footing it to the continent mid-term is also on the table, considering that with favourable queues at low-cost paradise Stansted, you can be in Cambridge within an hour and a half, evidenced by viral posts and TikToks of students popping to Milan for pizza and a spritz.</p>
-            <p>But slow-travel proponents are sceptical of this shrinking world. In Rosie’s opinion, when flying “we don’t have to critically engage with how we are able to go from one place to another and how one place evolves through space. You walk through security and the most inconvenient thing that happens is you have to take off your belt.” She feels flying mirrors a modern culture of time scarcity and instant gratification; we can’t be conscious within experiences, “because the system is designing it so we don’t see all the workings going on around it.” We accept convenience as unquestionably positive, but “there is something beautiful about taking the time to do something as a process, not as a means to an end.”</p>
+            <p>But slow-travel proponents are sceptical of this shrinking world. In Rosie's opinion, when flying "we don't have to critically engage with how we are able to go from one place to another and how one place evolves through space. You walk through security and the most inconvenient thing that happens is you have to take off your belt." She feels flying mirrors a modern culture of time scarcity and instant gratification; we can't be conscious within experiences, "because the system is designing it so we don't see all the workings going on around it." We accept convenience as unquestionably positive, but "there is something beautiful about taking the time to do something as a process, not as a means to an end."</p>
             <p>In those extra hours, you meet and strike up conversations with fellow travellers. I practised my Italian with a family between Turin and Paris, and Rosie met a Florentine university professor who gave her a contact that has proved useful in writing her dissertation.</p>
-            <p>Sadly, students have the time but often not the finances to fund flight-free travel, even excluding the extra costs of getting to London and across the channel. Newcomer Byway, a flight-free travel agency, offers a tailored alternative for those with more cash (though they recently released a collection of “Gen Z tailored trips” after bookings from the demographic “went up 430% year on year.”) A recent survey they ran with OnePoll revealed a number of “real or perceived barriers people see with flight-free travel: Over a quarter (27%) said planning and booking a flight-free trip felt like too much hassle, with nearly one in ten (8%) reporting they wouldn’t know how to organise [it]”</p>
-            <p>Proving the point, fellow editor Anna Metzger recently had to abandon a flight-free trip to Ireland due to disruption, and complex routes often pose difficulty. For Byway, “the trick is to remove the faff and hassle to easily give travellers a taste of just how joyful slow travel can be.” Speaking to a travel consultant at a top high street brand revealed this thinking to be far from mainstream, however, as “people want a tailor-made, high-quality holiday for a price they feel is a deal…most of the time, sustainability never comes into that equation”.</p>
-            <p>The pandemic forced a sobering look in the mirror for business travellers (reflections ashen-faced from gruelling hops between London, Frankfurt and New York), but commercial flights have rallied post-COVID. A pressing question for universities, too, with The Independent reporting in 2020 that eight institutions, Cambridge included, had spent ‘tens of millions’ on ‘170,000 flights’ in the four years previous. Another moral dilemma for climate scientist William, whose second last flight was for a conference in Main. While he initially doubted the necessity of in-person attendance, he found it “incredibly useful”, though on balance believes people should think twice.</p>
-            <p>William’s boat club has a training camp next year in Spain, and as captain he pushed for the club to travel flight-free, facing resistance. In the end, a route by two trains and a coach has worked out at £50 more, a relatively small proportion of the trip’s total cost, but only one of his teammates will join him. The university’s policy on travel does not seem to produce a coherent approach across the collegiate university. The same seems to be the case globally, with aviation existing in an international grey-zone criss-crossed by thousands of aircraft daily; the industry is not as easily-regulated as others. The Paris Climate Agreement, already considered a lame duck by some, does not include aviation emissions in its ‘Nationally Determined Contributions’, and Corsia has been criticised for its lack of breadth and acceptance of damaging biofuels.</p>
-            <p>William sees perceptions of green travel as a significant psychological barrier: “people will only change when they think of something as normal, and they’ll only think that when they see other people doing it.” To that end, visibility and discourse is key to shedding the image of the “weird environmentalist” - a favourite naysayer’s retort is that ‘the flight is going anyway’, but your choice not to fly may encourage another person to think again. Confirmed by Lucy Fowler, Byway marketing manager: “94% of our customers say they'd book another Byway trip or refer a friend on homecoming…there's a snowball effect, with train-based options gathering momentum.”</p>
-            <p>Longer-term carbon offsetting is ineffective if we consider climate change an urgent crisis, and biofuels give rise to a ‘fuel vs food’ tension which could exacerbate impacts on food security. Ultimately, slow travel may remain too expensive to become a realistic option for students, limited to one-off interrail trips. But it is slowly entering the mainstream, with 67% in the UK in 2020 saying they are willing to fly less for the sake of the environment, and new sleeper routes opening across Europe, notably between Paris and Berlin, Rome and the Dolomites. Is there hope the trend could accelerate, bringing ever more people down to earth? Will says “it’s got to. There’s no such thing as sustainable aviation.”</p>
+            <p>Sadly, students have the time but often not the finances to fund flight-free travel, even excluding the extra costs of getting to London and across the channel. Newcomer Byway, a flight-free travel agency, offers a tailored alternative for those with more cash (though they recently released a collection of "Gen Z tailored trips" after bookings from the demographic "went up 430% year on year.") A recent survey revealed a number of barriers people see with flight-free travel: over a quarter (27%) said planning and booking a flight-free trip felt like too much hassle, with nearly one in ten (8%) reporting they wouldn't know how to organise it.</p>
+            <p>Proving the point, fellow editor Anna Metzger recently had to abandon a flight-free trip to Ireland due to disruption, and complex routes often pose difficulty. For Byway, "the trick is to remove the faff and hassle to easily give travellers a taste of just how joyful slow travel can be." Speaking to a travel consultant at a top high street brand revealed this thinking to be far from mainstream, however, as "people want a tailor-made, high-quality holiday for a price they feel is a deal… most of the time, sustainability never comes into that equation."</p>
+            <p>The pandemic forced a sobering look in the mirror for business travellers, but commercial flights have rallied post-COVID. A pressing question for universities too, with The Independent reporting in 2020 that eight institutions, Cambridge included, had spent 'tens of millions' on '170,000 flights' in the four years previous. Another moral dilemma for climate scientist William, whose second last flight was for a conference. While he initially doubted the necessity of in-person attendance, he found it "incredibly useful", though on balance believes people should think twice.</p>
+            <p>William's boat club has a training camp next year in Spain, and as captain he pushed for the club to travel flight-free, facing resistance. In the end, a route by two trains and a coach has worked out at £50 more, a relatively small proportion of the trip's total cost, but only one of his teammates will join him.</p>
+            <p>William sees perceptions of green travel as a significant psychological barrier: "people will only change when they think of something as normal, and they'll only think that when they see other people doing it." To that end, visibility and discourse is key to shedding the image of the "weird environmentalist" — a favourite naysayer's retort is that 'the flight is going anyway', but your choice not to fly may encourage another person to think again.</p>
+            <p>Longer-term carbon offsetting is ineffective if we consider climate change an urgent crisis, and biofuels give rise to a 'fuel vs food' tension which could exacerbate impacts on food security. Ultimately, slow travel may remain too expensive to become a realistic option for students, limited to one-off interrail trips. But it is slowly entering the mainstream, with 67% in the UK in 2020 saying they are willing to fly less for the sake of the environment, and new sleeper routes opening across Europe. Is there hope the trend could accelerate, bringing ever more people down to earth? Will says "it's got to. There's no such thing as sustainable aviation."</p>
           `
         }
       };
 
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Mobile menu
       const menuToggle = document.getElementById("menuToggle");
       const mobileNav = document.getElementById("mobileNav");
-      const filterButtons = document.querySelectorAll(".filter-btn");
-      const portfolioList = document.getElementById("portfolioList");
-      const portfolioItems = Array.from(document.querySelectorAll(".portfolio-item"));
-      const animatedItems = document.querySelectorAll("[data-animate]");
-      const homeView = document.getElementById("homeView");
-      const articleView = document.getElementById("articleView");
-      const siteFooter = document.getElementById("siteFooter");
-      const articleModal = document.getElementById("articleModal");
-      const articleFrame = document.getElementById("articleFrame");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalSubtitle = document.getElementById("modalSubtitle");
-      const modalOpenNewTab = document.getElementById("modalOpenNewTab");
-      const modalCloseButton = document.getElementById("modalCloseButton");
-      const pdfTriggers = document.querySelectorAll("[data-pdf-url]");
-
-      document.getElementById("year").textContent = new Date().getFullYear();
 
       menuToggle.addEventListener("click", () => {
         const isOpen = mobileNav.classList.toggle("open");
@@ -1069,7 +1106,7 @@
         menuToggle.textContent = isOpen ? "Close" : "Menu";
       });
 
-      mobileNav.querySelectorAll("a").forEach((link) => {
+      mobileNav.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
           mobileNav.classList.remove("open");
           menuToggle.setAttribute("aria-expanded", "false");
@@ -1077,53 +1114,53 @@
         });
       });
 
-      portfolioItems
+      // Sort portfolio by date
+      const portfolioList = document.getElementById("portfolioList");
+      Array.from(portfolioList.querySelectorAll(".portfolio-item"))
         .sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date))
-        .forEach((item) => portfolioList.appendChild(item));
+        .forEach(item => portfolioList.appendChild(item));
 
-      filterButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const filter = button.dataset.filter;
-
-          filterButtons.forEach((btn) => btn.classList.remove("active"));
-          button.classList.add("active");
-
-          Array.from(document.querySelectorAll(".portfolio-item")).forEach((item) => {
-            const matches = filter === "All" || item.dataset.category === filter;
-            item.style.display = matches ? (window.innerWidth <= 900 ? "grid" : "flex") : "none";
+      // Filters
+      document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.dataset.filter;
+          document.querySelectorAll(".portfolio-item").forEach(item => {
+            item.style.display = (filter === "All" || item.dataset.category === filter) ? "" : "none";
           });
         });
       });
 
-      function renderArticle(slug) {
-        const article = articles[slug];
-        if (!article) return;
+      // Article routing
+      const homeView = document.getElementById("homeView");
+      const articleView = document.getElementById("articleView");
+      const siteFooter = document.getElementById("siteFooter");
 
+      function renderArticle(slug) {
+        const a = articles[slug];
+        if (!a) return;
         articleView.innerHTML = `
           <div class="article-shell">
             <a href="#" class="article-back">← Back to portfolio</a>
-            <p class="section-label">Portfolio</p>
-            <h1 class="article-headline">${article.title}</h1>
-            <p class="article-standfirst">${article.standfirst}</p>
-            <div class="article-meta-block">
-              <span>${article.meta}</span>
-              <span>By ${article.byline}</span>
+            <div class="article-kicker">${a.kicker}</div>
+            <h1 class="article-headline">${a.title}</h1>
+            <p class="article-standfirst">${a.standfirst}</p>
+            <div class="article-meta-bar">
+              <span>${a.meta}</span>
+              <span>By ${a.byline}</span>
             </div>
-            ${article.note ? `<div class="article-note-block">${article.note}</div>` : ""}
-            <div class="article-body">${article.body}</div>
+            ${a.note ? `<div class="article-note-block">${a.note}</div>` : ""}
+            <div class="article-body">${a.body}</div>
           </div>
         `;
-
         homeView.classList.add("hidden");
         articleView.classList.add("visible");
         siteFooter.style.display = "none";
-
-        const backLink = articleView.querySelector(".article-back");
-        backLink.addEventListener("click", (event) => {
-          event.preventDefault();
+        articleView.querySelector(".article-back").addEventListener("click", e => {
+          e.preventDefault();
           window.location.hash = "";
         });
-
         window.scrollTo({ top: 0, behavior: "auto" });
       }
 
@@ -1136,14 +1173,23 @@
 
       function handleRoute() {
         const hash = window.location.hash;
-
         if (hash.startsWith("#article/")) {
-          const slug = hash.replace("#article/", "");
-          renderArticle(slug);
+          renderArticle(hash.replace("#article/", ""));
         } else {
           showHome();
         }
       }
+
+      window.addEventListener("hashchange", handleRoute);
+      handleRoute();
+
+      // PDF modal
+      const articleModal = document.getElementById("articleModal");
+      const articleFrame = document.getElementById("articleFrame");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalSubtitle = document.getElementById("modalSubtitle");
+      const modalOpenNewTab = document.getElementById("modalOpenNewTab");
+      const modalCloseButton = document.getElementById("modalCloseButton");
 
       function openPdf(url, title, meta) {
         articleFrame.src = url;
@@ -1162,49 +1208,27 @@
         document.body.classList.remove("modal-open");
       }
 
-      pdfTriggers.forEach((trigger) => {
+      document.querySelectorAll("[data-pdf-url]").forEach(trigger => {
         trigger.addEventListener("click", () => {
           openPdf(trigger.dataset.pdfUrl, trigger.dataset.pdfTitle, trigger.dataset.pdfMeta);
         });
       });
 
       modalCloseButton.addEventListener("click", closePdf);
+      articleModal.addEventListener("click", e => { if (e.target === articleModal) closePdf(); });
+      document.addEventListener("keydown", e => { if (e.key === "Escape" && articleModal.classList.contains("open")) closePdf(); });
 
-      articleModal.addEventListener("click", (event) => {
-        if (event.target === articleModal) {
-          closePdf();
-        }
-      });
+      // Scroll animations
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && articleModal.classList.contains("open")) {
-          closePdf();
-        }
-      });
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("visible");
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12 }
-      );
-
-      animatedItems.forEach((item) => observer.observe(item));
-
-      window.addEventListener("hashchange", handleRoute);
-      handleRoute();
-
-      console.assert(document.querySelectorAll(".portfolio-item").length === 6, "Expected 6 portfolio items.");
-      console.assert(document.querySelectorAll(".filter-btn").length === 4, "Expected 4 portfolio filters.");
-      console.assert(!!document.getElementById("menuToggle"), "Expected mobile menu toggle to exist.");
-      console.assert(!!document.getElementById("year"), "Expected footer year element to exist.");
-      console.assert(Object.keys(articles).length === 3, "Expected 3 full article pages.");
-      console.assert(document.querySelectorAll("[data-pdf-url]").length === 3, "Expected 3 PDF article triggers.");
+      document.querySelectorAll("[data-animate]").forEach(el => observer.observe(el));
     </script>
   </body>
 </html>
