@@ -7,12 +7,12 @@
     <meta name="description" content="Alex Levy is a reporter at Professional Pensions covering the pensions industry, with experience across local news, student journalism, video and community management." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
         --ink: #1a1814;
-        --ink-mid: rgba(26,24,20,0.6);
-        --ink-soft: rgba(26,24,20,0.38);
+        --ink-mid: rgba(26,24,20,0.85);
+        --ink-soft: rgba(26,24,20,0.7);
         --paper: #f7f4ee;
         --paper-warm: #ede9e0;
         --rule: rgba(26,24,20,0.14);
@@ -65,7 +65,7 @@
       }
 
       .brand {
-        font-family: var(--serif);
+        font-family: var(--sans);
         font-size: 1.15rem;
         font-weight: 700;
         letter-spacing: 0.01em;
@@ -75,9 +75,9 @@
         display: flex;
         gap: 36px;
         font-family: var(--sans);
-        font-size: 0.78rem;
+        font-size: 0.85rem;
         font-weight: 400;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
       }
 
@@ -89,8 +89,9 @@
         background: none;
         border: 1px solid var(--rule);
         border-radius: 4px;
-        padding: 7px 12px;
-        font-size: 0.75rem;
+        padding: 10px 14px;
+        min-height: 44px;
+        font-size: 0.82rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--ink-mid);
@@ -101,7 +102,7 @@
         flex-direction: column;
         gap: 14px;
         padding-bottom: 18px;
-        font-size: 0.82rem;
+        font-size: 0.9rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
@@ -114,14 +115,15 @@
         align-items: center;
         justify-content: space-between;
         gap: 10px;
-        padding: 10px 15px;
+        padding: 10px 16px;
+        min-height: 44px;
         border: 1px solid var(--rule);
         border-radius: 3px;
         background: var(--white);
         font-family: var(--sans);
-        font-size: 0.75rem;
+        font-size: 0.82rem;
         font-weight: 400;
-        letter-spacing: 0.09em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
         color: var(--ink-mid);
         transition: background 0.2s, color 0.2s, border-color 0.2s;
@@ -143,32 +145,8 @@
 
       /* ── HERO ── */
       .hero {
-        padding: 96px 0 80px;
+        padding: 72px 0 60px;
         border-bottom: 1px solid var(--rule);
-      }
-
-      .hero-eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 44px;
-      }
-
-      .hero-eyebrow::before,
-      .hero-eyebrow::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: var(--rule);
-      }
-
-      .hero-eyebrow-text {
-        font-family: var(--sans);
-        font-size: 0.68rem;
-        letter-spacing: 0.32em;
-        text-transform: uppercase;
-        color: var(--ink-soft);
-        white-space: nowrap;
       }
 
       .hero-inner {
@@ -179,22 +157,16 @@
       }
 
       h1 {
-        font-family: var(--serif);
-        font-size: clamp(3.8rem, 9vw, 7rem);
+        font-family: var(--sans);
+        font-size: clamp(2.6rem, 6vw, 4rem);
         font-weight: 700;
-        line-height: 0.91;
-        letter-spacing: -0.025em;
-        margin-bottom: 28px;
-      }
-
-      h1 em {
-        font-style: italic;
-        font-weight: 400;
-        color: var(--accent);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+        margin-bottom: 20px;
       }
 
       .hero-copy {
-        font-family: var(--garamond);
+        font-family: var(--sans);
         font-size: 1.22rem;
         line-height: 1.75;
         color: var(--ink-mid);
@@ -217,27 +189,29 @@
 
       .section-grid {
         display: grid;
-        grid-template-columns: 190px 1fr;
-        gap: 64px;
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
 
       .section-label {
         font-family: var(--sans);
-        font-size: 0.67rem;
-        letter-spacing: 0.3em;
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        font-weight: 700;
         text-transform: uppercase;
-        color: var(--ink-soft);
+        color: var(--ink);
         padding-top: 5px;
       }
 
       /* ── ABOUT ── */
       .about-text {
-        font-family: var(--garamond);
+        font-family: var(--sans);
         font-size: 1.18rem;
         line-height: 1.85;
         color: rgba(26,24,20,0.82);
       }
 
+      .about-text { max-width: 720px; }
       .about-text p + p { margin-top: 1.1em; }
 
       /* ── CV ── */
@@ -267,8 +241,8 @@
       }
 
       .cv-tagline {
-        font-family: var(--garamond);
-        font-size: 1.05rem;
+        font-family: var(--sans);
+        font-size: 1.1rem;
         color: var(--ink-mid);
       }
 
@@ -282,28 +256,29 @@
 
       .cv-col-label {
         font-family: var(--sans);
-        font-size: 0.63rem;
-        letter-spacing: 0.28em;
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+        font-weight: 700;
         text-transform: uppercase;
-        color: var(--ink-soft);
+        color: var(--ink);
         margin-bottom: 20px;
       }
 
-      .cv-item { margin-bottom: 18px; }
+      .cv-item { margin-bottom: 24px; }
 
       .cv-item strong {
         display: block;
         font-family: var(--sans);
         font-weight: 500;
-        font-size: 0.86rem;
+        font-size: 0.98rem;
         color: var(--ink);
-        margin-bottom: 2px;
+        margin-bottom: 4px;
       }
 
       .cv-item span {
-        font-size: 0.83rem;
+        font-size: 0.95rem;
         color: var(--ink-mid);
-        line-height: 1.5;
+        line-height: 1.6;
       }
 
       /* ── PORTFOLIO ── */
@@ -311,17 +286,23 @@
         display: flex;
         flex-wrap: wrap;
         gap: 7px;
-        margin-bottom: 28px;
+        margin-bottom: 8px;
+        position: sticky;
+        top: 69px;
+        z-index: 50;
+        background: var(--paper);
+        padding: 12px 0;
       }
 
       .filter-btn {
-        padding: 6px 14px;
+        padding: 8px 16px;
+        min-height: 40px;
         border: 1px solid var(--rule);
         border-radius: 2px;
         background: transparent;
         font-family: var(--sans);
-        font-size: 0.7rem;
-        letter-spacing: 0.12em;
+        font-size: 0.8rem;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
         color: var(--ink-mid);
         transition: all 0.2s;
@@ -348,8 +329,8 @@
 
       .item-meta {
         font-family: var(--sans);
-        font-size: 0.67rem;
-        letter-spacing: 0.2em;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--ink-soft);
         margin-bottom: 10px;
@@ -372,8 +353,8 @@
       }
 
       .item-desc {
-        font-family: var(--garamond);
-        font-size: 1rem;
+        font-family: var(--sans);
+        font-size: 1.05rem;
         line-height: 1.7;
         color: var(--ink-mid);
         max-width: 580px;
@@ -384,8 +365,8 @@
         padding: 12px 16px;
         border-left: 2px solid var(--accent);
         background: var(--accent-light);
-        font-family: var(--garamond);
-        font-size: 0.95rem;
+        font-family: var(--sans);
+        font-size: 1rem;
         line-height: 1.65;
         color: var(--ink-mid);
         font-style: italic;
@@ -398,6 +379,22 @@
         gap: 8px;
         padding-top: 2px;
       }
+
+      .item-actions .btn + .btn {
+        justify-content: flex-start;
+        gap: 6px;
+        white-space: nowrap;
+        background: none;
+        border-color: transparent;
+        padding-left: 4px;
+        padding-right: 4px;
+        color: var(--accent);
+      }
+      .item-actions .btn + .btn:hover { background: none; color: var(--ink); border-color: transparent; }
+
+      /* ── ACCESSIBILITY ── */
+      :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+      section[id] { scroll-margin-top: 70px; }
 
       /* ── CONTACT ── */
       .contact-intro {
@@ -413,7 +410,7 @@
       }
 
       .contact-sub {
-        font-family: var(--garamond);
+        font-family: var(--sans);
         font-size: 1.05rem;
         color: var(--ink-mid);
       }
@@ -443,10 +440,11 @@
 
       .contact-lbl {
         font-family: var(--sans);
-        font-size: 0.63rem;
-        letter-spacing: 0.22em;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        font-weight: 600;
         text-transform: uppercase;
-        color: var(--ink-soft);
+        color: var(--ink-mid);
         margin-bottom: 5px;
         transition: color 0.2s;
       }
@@ -469,7 +467,7 @@
         gap: 16px;
         flex-wrap: wrap;
         font-family: var(--sans);
-        font-size: 0.76rem;
+        font-size: 0.85rem;
         color: var(--ink-soft);
       }
 
@@ -495,8 +493,8 @@
         align-items: center;
         gap: 8px;
         font-family: var(--sans);
-        font-size: 0.72rem;
-        letter-spacing: 0.14em;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--ink-soft);
         margin-bottom: 48px;
@@ -507,8 +505,8 @@
 
       .article-kicker {
         font-family: var(--sans);
-        font-size: 0.67rem;
-        letter-spacing: 0.25em;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
         font-weight: 500;
@@ -525,7 +523,7 @@
       }
 
       .article-standfirst {
-        font-family: var(--garamond);
+        font-family: var(--sans);
         font-size: 1.18rem;
         line-height: 1.7;
         color: var(--ink-mid);
@@ -542,7 +540,7 @@
         border-bottom: 1px solid var(--rule);
         margin-bottom: 36px;
         font-family: var(--sans);
-        font-size: 0.76rem;
+        font-size: 0.85rem;
         color: var(--ink-soft);
         letter-spacing: 0.04em;
       }
@@ -552,7 +550,7 @@
         padding: 15px 18px;
         border-left: 2px solid var(--accent);
         background: var(--accent-light);
-        font-family: var(--garamond);
+        font-family: var(--sans);
         font-size: 1rem;
         line-height: 1.65;
         color: var(--ink-mid);
@@ -560,7 +558,7 @@
       }
 
       .article-body {
-        font-family: var(--garamond);
+        font-family: 'EB Garamond', Georgia, serif;
         font-size: 1.17rem;
         line-height: 1.92;
         color: var(--ink);
@@ -611,8 +609,8 @@
 
       .modal-sub {
         font-family: var(--sans);
-        font-size: 0.7rem;
-        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--ink-soft);
       }
@@ -622,13 +620,14 @@
       .article-frame { width: 100%; height: 100%; border: 0; }
 
       /* ── ANIMATIONS ── */
-      [data-animate] {
-        opacity: 0;
-        transform: translateY(18px);
-        transition: opacity 0.7s ease, transform 0.7s ease;
+      @media (prefers-reduced-motion: no-preference) {
+        [data-animate] {
+          opacity: 0;
+          transform: translateY(18px);
+          transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        [data-animate].visible { opacity: 1; transform: none; }
       }
-
-      [data-animate].visible { opacity: 1; transform: none; }
 
       /* ── RESPONSIVE ── */
       @media (max-width: 860px) {
@@ -653,8 +652,8 @@
       @media (max-width: 560px) {
         .container, .article-shell { width: calc(100% - 32px); }
         .section { padding: 56px 0; }
-        .hero { padding: 60px 0 52px; }
-        h1 { font-size: clamp(2.8rem, 12vw, 4rem); }
+        .hero { padding: 44px 0 40px; }
+        h1 { font-size: clamp(2.3rem, 10vw, 3rem); }
         .cv-header, .cv-col { padding: 20px; }
         .section-grid { gap: 24px; }
       }
@@ -709,12 +708,9 @@
       <!-- Hero -->
       <section class="hero" id="top">
         <div class="container">
-          <div class="hero-eyebrow">
-            <span class="hero-eyebrow-text">Financial Journalist</span>
-          </div>
           <div class="hero-inner">
             <div data-animate>
-              <h1>Alex<br><em>Levy</em></h1>
+              <h1>Alex Levy</h1>
               <p class="hero-copy">Financial journalist covering the pensions industry, with experience across local news, student journalism, video and community management.</p>
             </div>
             <div class="hero-aside" data-animate>
@@ -1081,10 +1077,10 @@
               <p class="contact-sub">For any questions, please get in touch.</p>
             </div>
             <div class="contact-grid">
-              <a class="contact-card" href="mailto:alexlevyjournalist@gmail.com">
+              <a class="contact-card" href="mailto:al2007@cantab.ac.uk">
                 <div class="contact-icon">✉</div>
                 <div class="contact-lbl">Email</div>
-                <div class="contact-val">alexlevyjournalist@gmail.com</div>
+                <div class="contact-val">al2007@cantab.ac.uk</div>
               </a>
               <a class="contact-card" href="https://www.linkedin.com/in/alex-levy-42b905132/" target="_blank" rel="noreferrer">
                 <div class="contact-icon">🌐</div>
